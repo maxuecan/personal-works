@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<style>
+  div.parent{ 
+    font-size: 0;
+    text-align: center;
+  }
+  div.parent::before {
+      content: "";
+      display: inline-block;
+      widht: 0;
+      height: 100%;
+      vertical-align: middle;
+    }
+  div.child {
+    display: inline-block;
+    vertical-align: middle;
+  }
+</style>
+<body>
+  <div>123</div>
+  <button onclick="handleEvent()">子按钮</button>
+  <div class="parent">
+    <div class="child">231</div>
+  </div>
+  <script>
+    // 子页面
+    // 注册message消息事件监听，接受数据
+    window.addEventListener('message', (e) => {
+      console.log(e, '子级监听')
+      // 接受到数据后，子页面可以向父页面发送数据，告诉父页面已收到消息
+      // e.source.postMessage('确认收到消息', '*')
+    }, false)
+
+    function handleEvent() {
+      // 发送数据，触发父页面的监听事件
+      window.postMessage('我是子数据', '*')
+    }
+  </script>
+</body>
+</html>
