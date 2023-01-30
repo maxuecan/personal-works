@@ -41,7 +41,8 @@ import { storeKey, useStore } from 'vuex'
 import Navigate from '@/components/navigate/index.vue'
 import Home from '@/components/info/index.vue'
 import CssWorld from '@/components/cssWorld/index.vue'
-import { storeToRefs } from 'pinia'
+import ComCanvas from '@/views/canvas/index.vue'
+// import { storeToRefs } from 'pinia'
 // import ThreeJs from '@/components/threeJs/index.vue'
   
 export default defineComponent({
@@ -73,7 +74,7 @@ export default defineComponent({
     // 如果使用 markRaw 那么currentComp将不永远不会再成为响应式对象。 所以得使用 shallowRef
     let currentComp = shallowRef(Home)
 
-    let nav_active = [Home, CssWorld]
+    let nav_active = [Home, CssWorld, ComCanvas]
 
     onMounted(() => {
       if (show_animate) {

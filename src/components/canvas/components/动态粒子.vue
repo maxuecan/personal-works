@@ -1,7 +1,6 @@
 <template>
   <div>
     <canvas id="canvas"></canvas>
-    <div class="text">仿知乎动态粒子效果背景</div>
   </div>
 </template>
 
@@ -128,17 +127,5 @@ canvas {
   display: block;
   width: 100%;
   height: 100%;
-}
-.text {
-  display: flex;
-  justify-content: center;
-  line-height: 100%;
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  top: 0;
-  top: 50%;
-  font-size: 50px;
-  background: transparent;
 }
 </style>

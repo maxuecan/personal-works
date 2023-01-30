@@ -43,9 +43,10 @@ export default defineComponent({
   left: 10%;
   top: 10%;
   display: flex;
-  background: white;
-  color: gray;
+  background: #deab8a;
+  color: white;
   opacity: 0.9;
+  border-radius: 25px;
   .message {
     width: 50%;
     padding: 8% 1.25rem 1.25rem;
@@ -73,7 +74,7 @@ export default defineComponent({
       }
     }
     & > div:nth-child(2) {
-      border-top: 2px solid #cccccc;
+      border-top: 2px solid white;
       padding: 1.25rem 0 0 0;
     }
   }
@@ -105,6 +106,7 @@ export default defineComponent({
     left: 0;
     display: block;
     overflow: hidden;
+    border-radius: 0rem;
     .message {
       width: auto ;
     }

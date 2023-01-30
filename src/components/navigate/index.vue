@@ -11,9 +11,9 @@
         <div @click="navigate" :class="[isActive && 'active', isExactActive && 'router-link-exact-active']">canvas</div>
       </router-link> -->
 
-      <div @click="navigate(1)" :class="is_active === 1 ? 'active' : ''">首页</div>
-      <div @click="navigate(2)" :class="is_active === 2 ? 'active' : ''">css世界</div>
-      <div @click="navigate(3)" :class="is_active === 3 ? 'active' : ''">canvas</div>
+      <div @click="navigate(1)" :class="is_active === 1 ? 'active' : ''">藏经阁</div>
+      <div @click="navigate(2)" :class="is_active === 2 ? 'active' : ''">内功</div>
+      <div @click="navigate(3)" :class="is_active === 3 ? 'active' : ''">外功</div>
     </div>
   </div>
 </template>
