@@ -33,8 +33,8 @@ import { defineComponent, computed, ref, onMounted, getCurrentInstance, shallowR
 /* vuex引入（组合api） */
 import { storeKey, useStore } from 'vuex'
 /* pinia引入 */
-import useUser from '@/pinia/modules/user'
-import { storeToRefs } from 'pinia'
+// import useUser from '@/pinia/modules/user'
+// import { storeToRefs } from 'pinia'
 /* emit用法 */
 // import Emit from '@/components/emit/index.vue'
 /* 组件 */
@@ -63,8 +63,8 @@ export default defineComponent({
       第三种：$state方式
       第四种：$reset()函数是重置state数据
     */
-    const user = useUser()
-    const { account } = storeToRefs(user)
+    // const user = useUser()
+    // const { account } = storeToRefs(user)
     // console.log(user)
     // console.log(account)
     

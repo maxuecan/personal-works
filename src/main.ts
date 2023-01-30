@@ -15,7 +15,7 @@ import VueLazyload from 'vue-lazyload'
 // const loadimage = require('./加载图片')
 const errorimage = new URL('./assets/home/错误图片.png', import.meta.url)
 
-import pinia from './pinia'
+// import pinia from './pinia'
 
 // createApp(App).mount('#app')
 
@@ -30,7 +30,7 @@ app.use(VueLazyload, {
   // loading: loadimage,
   attempt: 1
 })
-app.use(pinia)
+// app.use(pinia)
 app.use(router).use(store).mount('#app')
 
 /* 提供一个值，可以在应用中的所有后代组件注入使用 */
