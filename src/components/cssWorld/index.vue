@@ -165,9 +165,11 @@ export default defineComponent({
     let { proxy } = getCurrentInstance() as any
 
     const catalogueChange = (e: any) => {
-      proxy.$refs.toggle.checked = false
-      is_active.value = catalogue.indexOf(e.target.innerText.split('，')[1])
-      currentComp.value = context[is_active.value]
+      if (e.srcElement.nodeName === 'LI') {
+        proxy.$refs.toggle.checked = false
+        is_active.value = catalogue.indexOf(e.target.innerText.split('，')[1])
+        currentComp.value = context[is_active.value]
+      }
     }
 
     return {
@@ -258,7 +260,7 @@ export default defineComponent({
 }
 /* 选中后的第二条线 */
 .hamburger_menu #toggle:checked + label .hamburger_container span:nth-child(2) {
-	top: 5px;
+	top: .3125rem;
 	/* 逆时针旋转45度 */
 	transform: rotate(-45deg);
 	transition: top 0.2s ease-in-out, transform 0.2s ease-in-out 0.2s;
@@ -268,7 +270,7 @@ export default defineComponent({
 .hamburger_menu ul {
 	width: 100vm;
 	/* 让高度占浏览器可视区域的100% 减去 导航栏的48px */
-	height: calc(100vh - 48px);
+	height: calc(100vh - 180px);
 	/* 内边距 */
 	padding: 0 50px;
 	/* 基本框架搭建完了 */
