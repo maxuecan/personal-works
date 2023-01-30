@@ -30,14 +30,18 @@
 <script lang="ts">
 import { defineComponent, computed, ref, onMounted, getCurrentInstance, shallowRef } from 'vue'
 // import { useRoute, useRouter } from 'vue-router'
-// vuex引入（组合api）
+/* vuex引入（组合api） */
 import { storeKey, useStore } from 'vuex'
+/* pinia引入 */
+import useUser from '@/pinia/modules/user'
+import { storeToRefs } from 'pinia'
 /* emit用法 */
 // import Emit from '@/components/emit/index.vue'
 /* 组件 */
 import Navigate from '@/components/navigate/index.vue'
 import Home from '@/components/info/index.vue'
 import CssWorld from '@/components/cssWorld/index.vue'
+import { storeToRefs } from 'pinia'
 // import ThreeJs from '@/components/threeJs/index.vue'
   
 export default defineComponent({
@@ -47,6 +51,23 @@ export default defineComponent({
 
     const store = useStore()
     let show_animate = ref(!store.state.user.home_animate)
+
+    /* 
+      pinia使用
+      Store获取到后不能解构，否则失去响应式：pinia提供了函数storeToRefs
+      作用：把解构的数据使用ref做代理
+
+      pinia修改state数据方式
+      第一种：user.account
+      第二种：user.$patch({account: 1, home_animate: false})
+      第三种：$state方式
+      第四种：$reset()函数是重置state数据
+    */
+    const user = useUser()
+    const { account } = storeToRefs(user)
+    // console.log(user)
+    // console.log(account)
+    
 
     //这里用ref的话，vue给出警告Vue接收到一个组件，该组件被制成反应对象。这可能会导致不必要的性能开销，应该通过将组件标记为“markRaw”或使用“shallowRef”而不是“ref”来避免。
     // 如果使用 markRaw 那么currentComp将不永远不会再成为响应式对象。 所以得使用 shallowRef

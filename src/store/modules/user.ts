@@ -30,10 +30,10 @@ const mutations = {
 
 const actions = {
   getAaccount({ commit }) {
-    commit('setAccount')
+    commit('SET_ACCOUNT')
   },
   getToken({ commit }) {
-    commit('setToken')
+    commit('SET_TOKEN')
   },
   // 重置/删除token
   resetToken({ commit }) {

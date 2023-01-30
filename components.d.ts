@@ -52,6 +52,7 @@ declare module '@vue/runtime-core' {
     '时钟': typeof import('./src/components/canvas/时钟.vue')['default']
     CssWorld: typeof import('./src/components/cssWorld/index.vue')['default']
     El_table: typeof import('./src/components/element/el_table.vue')['default']
+    ElButton: typeof import('element-plus/es')['ElButton']
     ElRadio: typeof import('element-plus/es')['ElRadio']
     ElRadioGroup: typeof import('element-plus/es')['ElRadioGroup']
     ElTable: typeof import('element-plus/es')['ElTable']

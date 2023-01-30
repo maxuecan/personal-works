@@ -78,11 +78,11 @@ export default defineComponent({
     }
   }
   .picture {
-    width: 40%;
+    width: 50%;
     & > img {
       width: 50%;
       height: auto;
-      padding: 30% 0 0 0;
+      padding: 25% 0 0 0;
       margin: 0 auto;
       display: block;
     }
