@@ -109,17 +109,26 @@ onMounted(() => {
     }
     draw();
   }
-  window.addEventListener('load', init(60));
+  window.addEventListener('load', init(10));
   window.onmousemove = function (e) {
     e = e || window.event;
-    current_circle.x = e.clientX;
-    current_circle.y = e.clientY;
+    let { x, y } = windowToCanvas(canvas, e.clientX, e.clientY)
+    current_circle.x = x;
+    current_circle.y = y;
   }
   window.onmouseout = function () {
     current_circle.x = null;
     current_circle.y = null;
   };
 })
+
+const windowToCanvas = (canvas, x, y) => {
+  let rect = canvas.getBoundingClientRect()
+  return {
+    x: x - rect.left * (canvas.width / rect.width),
+    y: y - rect.top * (canvas.height / rect.height)
+  }
+}
 </script>
 
 <style lang="scss" scoped>

@@ -1,19 +1,19 @@
 <template>
   <div>
-    <canvas id="canvas"></canvas>
+    <canvas id="canvas-shizhong" height="300"></canvas>
   </div>
 </template>
 
 <script setup>
 import { onMounted } from 'vue'
 onMounted(() => {
-  var canvas = document.getElementById('canvas');
+  var canvas = document.getElementById('canvas-shizhong');
 	var ctx = canvas.getContext('2d');
 
   setInterval(() => {
     ctx.save();
-    ctx.clearRect(0, 0, 600, 600);
-    ctx.translate(300, 300);
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.translate(150, 100);
     ctx.save()
 
     ctx.beginPath();

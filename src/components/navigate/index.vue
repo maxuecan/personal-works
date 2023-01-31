@@ -46,6 +46,7 @@ export default defineComponent({
     display: flex;
     justify-content: end;
     padding: 1.875rem 1.25rem 0 0;
+    cursor: pointer;
     & > div {
       display: block;
       text-decoration: none;
