@@ -80,16 +80,26 @@ export default defineComponent({
     display: flex;
     .catalogue {
       width: 20%;
-      padding: 14px;
+      padding: 14px 0 14px 7px;
       background: #cd9a5b;
       color: white;
       & > ul > li {
         margin: 15px 0 0 0;
+        overflow:hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
       }
     }
     .content {
       width: 80%;
     }
+  }
+}
+
+@media (max-width: 768px) {
+  .canvas-container {
+    width: 100%;
+    left: 0;
   }
 }
 </style>

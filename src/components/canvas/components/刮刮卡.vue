@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <canvas id="canvas" width="400" height="100"></canvas>
+  <div style="position: relative; z-index: 1;">
+    <canvas id="canvas-guaguaka"></canvas>
     <div class="text">恭喜您获得100w</div>
   </div>
 </template>
@@ -8,31 +8,57 @@
 <script setup>
 import { onMounted } from 'vue'
 onMounted(() => {
-  const canvas = document.getElementById('canvas')
+  const canvas = document.getElementById('canvas-guaguaka')
   const ctx = canvas.getContext('2d')
 
   ctx.fillStyle = 'darkgray'
-  ctx.fillRect(0, 0, 400, 100)
+  ctx.fillRect(0, 0, canvas.width, canvas.height)
   ctx.fillStyle = '#fff'
 
-  ctx.fillText('刮刮卡', 180, 50)
+  ctx.fillText('刮刮卡', canvas.width / 2, canvas.height / 2)
 
   let isDraw = false
-  canvas.onmousedown = function() {
-    isDraw = true
-  }
-  canvas.onmousemove = function(e) {
-    if (!isDraw) return
-    const x = e.pageX - canvas.offsetLeft
-    const y = e.pageY - canvas.offsetTop
-    ctx.globalCompositeOperation = 'destination-out'
-    ctx.arc(x, y, 10, 0, 2 * Math.PI)
-    ctx.fill()
-  }
-  canvas.onmouseup = function() {
-    isDraw = false
+  if (document.body.ontouchstart !== undefined) {
+    // 使用touch事件
+    canvas.ontouchstart = function (e) {
+      isDraw = true
+    }
+    canvas.ontouchmove = (e) => {
+      if (!isDraw) return
+      let ele = windowToCanvas(canvas, e.targetTouches[0].clientX, e.targetTouches[0].clientY)
+      let { x, y } = ele
+      ctx.globalCompositeOperation = 'destination-out'
+      ctx.arc(x, y, 10, 0, 2 * Math.PI)
+      ctx.fill()
+    }
+    canvas.ontouchend = function () {
+      isDraw = false
+    }
+  } else {
+    canvas.onmousedown = function() {
+      isDraw = true
+    }
+    canvas.onmousemove = function(e) {
+      if (!isDraw) return
+      let ele = windowToCanvas(canvas, e.clientX, e.clientY)
+      let { x, y } = ele
+      ctx.globalCompositeOperation = 'destination-out'
+      ctx.arc(x, y, 10, 0, 2 * Math.PI)
+      ctx.fill()
+    }
+    canvas.onmouseup = function() {
+      isDraw = false
+    }
   }
 })
+
+const windowToCanvas = (canvas, x, y) => {
+  let rect = canvas.getBoundingClientRect()
+  return {
+    x: x - rect.left * (canvas.width / rect.width),
+    y: y - rect.top * (canvas.height / rect.height)
+  }
+}
 </script>
 
 <style lang="scss" scoped>
@@ -42,8 +68,19 @@ onMounted(() => {
 }
 .text {
   position: absolute;
-  left: 130px;
-  top: 35px;
+  left: 50%;
+  top: 50%;
+  transform: translate(calc(-50% - 150px), -50%);
   z-index: -1;
+}
+
+@media (max-width: 768px) {
+  .text {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: -1;
+}
 }
 </style>
