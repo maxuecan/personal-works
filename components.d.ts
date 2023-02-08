@@ -60,6 +60,7 @@ declare module '@vue/runtime-core' {
     Emit: typeof import('./src/components/emit/index.vue')['default']
     Info: typeof import('./src/components/info/index.vue')['default']
     Inject: typeof import('./src/components/provide/inject.vue')['default']
+    Loading: typeof import('./src/components/loading/index.vue')['default']
     Navigate: typeof import('./src/components/navigate/index.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']

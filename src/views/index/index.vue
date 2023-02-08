@@ -1,34 +1,38 @@
 <template>
-  <div class="container">
-    <div class="book-container" v-if="show_animate">
-      <img class="book" src="../../assets/book.png" alt="">
-      <div class="wrap">
-        <h3>个</h3>
-        <h3>人</h3>
-        <h3>信</h3>
-        <h3>息</h3>
-      </div>
-    </div>
+  <div class="container" ref="container">
+    <Loading class="pos-center" v-if="load_bol" />
 
     <div v-else>
-      <Navigate @navChange="navChange" />
+      <div class="book-container" v-if="show_animate">
+        <img class="book" src="../../assets/book.png" alt="">
+        <div class="wrap">
+          <h3>个</h3>
+          <h3>人</h3>
+          <h3>信</h3>
+          <h3>息</h3>
+        </div>
+      </div>
 
-      <!-- vue3：keep-alive使用 -->
-      <keep-alive>
-        <component :is="currentComp"></component>
-      </keep-alive>
+      <div v-else>
+        <Navigate @navChange="navChange" />
+
+        <!-- vue3：keep-alive使用 -->
+        <keep-alive>
+          <component :is="currentComp"></component>
+        </keep-alive>
+      </div>
+
+      
+      <!-- <ThreeJs /> -->
+      <!-- Welcom
+      <button @click="goBack">返回</button>
+      <Emit @submits="checkHandler" /> -->
     </div>
-
-    
-    <!-- <ThreeJs /> -->
-    <!-- Welcom
-    <button @click="goBack">返回</button>
-    <Emit @submits="checkHandler" /> -->
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, computed, ref, onMounted, getCurrentInstance, shallowRef } from 'vue'
+import { defineComponent, computed, ref, onMounted, getCurrentInstance, shallowRef, nextTick } from 'vue'
 // import { useRoute, useRouter } from 'vue-router'
 /* vuex引入（组合api） */
 import { storeKey, useStore } from 'vuex'
@@ -42,6 +46,7 @@ import Navigate from '@/components/navigate/index.vue'
 import Home from '@/components/info/index.vue'
 import CssWorld from '@/components/cssWorld/index.vue'
 import ComCanvas from '@/views/canvas/index.vue'
+import Loading from '@/components/loading/index.vue'
 // import { storeToRefs } from 'pinia'
 // import ThreeJs from '@/components/threeJs/index.vue'
   
@@ -76,7 +81,16 @@ export default defineComponent({
 
     let nav_active = [Home, CssWorld, ComCanvas]
 
-    onMounted(() => {
+    let { proxy, ctx } = getCurrentInstance() as any
+
+    let load_bol = ref(true)
+
+    onMounted(async () => {
+      await nextTick()
+      setTimeout(() => {
+        loadImage()
+      }, 1000)
+
       if (show_animate) {
         setTimeout(() => {
           show_animate.value = false
@@ -87,6 +101,21 @@ export default defineComponent({
 
     const navChange = (e: any) => {
       currentComp.value = nav_active[e - 1]
+    }
+
+    const loadImage = () => {
+      let img = new Image()
+      let img_bg = new URL('../../assets/bg1.jpg', import.meta.url).href
+      img.src = img_bg
+      img.onload = function() {
+        load_bol.value = false
+        Object.assign(proxy.$refs.container.style, {
+          backgroundImage: `url(${img_bg})`
+        })
+      }
+      img.onerror = function () {
+        load_bol.value = false
+      }
     }
 
     // function checkHandler() {
@@ -101,6 +130,7 @@ export default defineComponent({
     return {
       show_animate,
       currentComp,
+      load_bol,
       navChange,
       // 在 computed 函数中访问 state
       // account: computed(() => store.state.account),
@@ -128,7 +158,9 @@ export default defineComponent({
   width: 100%;
   height: 100%;
   position: relative;
-  background: url('../../assets/bg1.jpg') no-repeat;
+  background: black;
+  // background: url('../../assets/bg1.jpg') no-repeat;
+  background-repeat: no-repeat;
   background-size: 100% 100%;
   .book-container {
     position: absolute;
@@ -231,7 +263,9 @@ export default defineComponent({
     width: 100%;
     height: 100%;
     position: relative;
-    background: url('../../assets/bg1.jpg') center/cover no-repeat;
+    // background: url('../../assets/bg1.jpg') center/cover no-repeat;
+    background-size: cover;
+    background-position: center;
   }
 }
 </style>
