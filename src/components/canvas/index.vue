@@ -2,7 +2,7 @@
   <div class="canvas-container">
     <div class="container">
       <div class="catalogue">
-        <ul @click.prevent="catalogueChange">
+        <ul @click.stop="catalogueChange">
           <li v-for="(item, index) in catalogue" :key="index">
             {{ item }}
           </li>

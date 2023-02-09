@@ -2,6 +2,7 @@ import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 const path = require('path')
 const pathResolve = (dir: string) => path.resolve(__dirname, dir)
+import viteCompression from 'vite-plugin-compression'
 
 import AutoImport from 'unplugin-auto-import/vite'
 import Components from 'unplugin-vue-components/vite'
@@ -16,6 +17,14 @@ export default defineConfig({
     }),
     Components({
       resolvers: [ElementPlusResolver()]
+    }),
+    viteCompression({
+      verbose: true,
+      disable: false, // 开启压缩（不禁用）
+      deleteOriginFile: false, // 删除源文件
+      threshold: 10240, // 压缩前最新文件大小
+      algorithm: 'gzip', // 压缩算法
+      ext: '.gz', // 文件类型
     })
   ],
   resolve: { // 配置别名
