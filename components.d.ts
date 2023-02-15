@@ -51,6 +51,7 @@ declare module '@vue/runtime-core' {
     '刮刮卡': typeof import('./src/components/canvas/components/刮刮卡.vue')['default']
     '时钟': typeof import('./src/components/canvas/components/时钟.vue')['default']
     Canvas: typeof import('./src/components/canvas/index.vue')['default']
+    ComVideo: typeof import('./src/components/com-video/index.vue')['default']
     CssWorld: typeof import('./src/components/cssWorld/index.vue')['default']
     El_table: typeof import('./src/components/element/el_table.vue')['default']
     ElRadio: typeof import('element-plus/es')['ElRadio']
@@ -58,6 +59,8 @@ declare module '@vue/runtime-core' {
     ElTable: typeof import('element-plus/es')['ElTable']
     ElTableColumn: typeof import('element-plus/es')['ElTableColumn']
     Emit: typeof import('./src/components/emit/index.vue')['default']
+    Flv: typeof import('./src/components/com-video/components/flv.vue')['default']
+    Hls: typeof import('./src/components/com-video/components/hls.vue')['default']
     Info: typeof import('./src/components/info/index.vue')['default']
     Inject: typeof import('./src/components/provide/inject.vue')['default']
     Loading: typeof import('./src/components/loading/index.vue')['default']
@@ -69,6 +72,8 @@ declare module '@vue/runtime-core' {
     Swiper: typeof import('./src/components/swiper.vue')['default']
     Test: typeof import('./src/components/test/index.vue')['default']
     ThreeJs: typeof import('./src/components/threeJs/index.vue')['default']
+    Video: typeof import('./src/components/video/index.vue')['default']
+    Videos: typeof import('./src/components/videos/index.vue')['default']
   }
 }
 

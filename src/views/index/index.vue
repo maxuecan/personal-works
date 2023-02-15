@@ -24,6 +24,7 @@
 
       
       <!-- <ThreeJs /> -->
+      <com-video />
       <!-- Welcom
       <button @click="goBack">返回</button>
       <Emit @submits="checkHandler" /> -->
@@ -41,14 +42,15 @@ import { storeKey, useStore } from 'vuex'
 // import { storeToRefs } from 'pinia'
 /* emit用法 */
 // import Emit from '@/components/emit/index.vue'
+
 /* 组件 */
 import Navigate from '@/components/navigate/index.vue'
 import Home from '@/components/info/index.vue'
 import CssWorld from '@/components/cssWorld/index.vue'
 import ComCanvas from '@/views/canvas/index.vue'
 import Loading from '@/components/loading/index.vue'
-// import { storeToRefs } from 'pinia'
 // import ThreeJs from '@/components/threeJs/index.vue'
+import ComVideo from '@/components/com-video/index.vue'
   
 export default defineComponent({
   setup() {
@@ -74,7 +76,6 @@ export default defineComponent({
     // console.log(user)
     // console.log(account)
     
-
     //这里用ref的话，vue给出警告Vue接收到一个组件，该组件被制成反应对象。这可能会导致不必要的性能开销，应该通过将组件标记为“markRaw”或使用“shallowRef”而不是“ref”来避免。
     // 如果使用 markRaw 那么currentComp将不永远不会再成为响应式对象。 所以得使用 shallowRef
     let currentComp = shallowRef(Home)
