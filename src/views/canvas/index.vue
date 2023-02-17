@@ -4,6 +4,6 @@
   </div>
 </template>
 
-<script setup>
+<script lang="ts" setup>
 import ComCanvas from '@/components/canvas/index.vue'
 </script>

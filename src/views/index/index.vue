@@ -78,7 +78,7 @@ export default defineComponent({
     
     //这里用ref的话，vue给出警告Vue接收到一个组件，该组件被制成反应对象。这可能会导致不必要的性能开销，应该通过将组件标记为“markRaw”或使用“shallowRef”而不是“ref”来避免。
     // 如果使用 markRaw 那么currentComp将不永远不会再成为响应式对象。 所以得使用 shallowRef
-    let currentComp = shallowRef(Home)
+    let currentComp = shallowRef(Home) as any
 
     let nav_active = [Home, CssWorld, ComCanvas]
 
@@ -87,6 +87,7 @@ export default defineComponent({
     let load_bol = ref(true)
 
     onMounted(async () => {
+      console.log(123)
       await nextTick()
       setTimeout(() => {
         loadImage()
