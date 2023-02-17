@@ -24,7 +24,7 @@
 
       
       <!-- <ThreeJs /> -->
-      <com-video />
+      <!-- <com-video /> -->
       <!-- Welcom
       <button @click="goBack">返回</button>
       <Emit @submits="checkHandler" /> -->
@@ -50,7 +50,7 @@ import CssWorld from '@/components/cssWorld/index.vue'
 import ComCanvas from '@/views/canvas/index.vue'
 import Loading from '@/components/loading/index.vue'
 // import ThreeJs from '@/components/threeJs/index.vue'
-import ComVideo from '@/components/com-video/index.vue'
+// import ComVideo from '@/components/video/index.vue'
   
 export default defineComponent({
   setup() {
