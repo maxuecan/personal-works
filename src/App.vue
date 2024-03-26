@@ -1,16 +1,19 @@
 <script lang="ts">
-// This starter template is using Vue 3 <script setup> SFCs
-// Check out https://vuejs.org/api/sfc-script-setup.html#script-setup
-import { defineComponent } from 'vue'
+// autofit.js使用
+// import autofit from 'autofit.js';
+import { onMounted, defineComponent } from 'vue'
 
 export default defineComponent({
-
-  // components: {
-    
-  // },
-
   setup() {
-
+    onMounted(() => {
+      // // autofit.js使用
+      // autofit.init({
+      //   dh: 1080,
+      //   dw: 1920,
+      //   el: '#app',
+      //   resize: true
+      // }, false)
+    })
   }
 })
 
@@ -30,12 +33,4 @@ export default defineComponent({
   width: 100%;
   height: 100%;
 }
-/* #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-} */
 </style>

@@ -1,3 +1,4 @@
+<!-- 模仿 https://juejin.cn/post/6985033373857579045?searchId=202310131634438B082DE3C2E001C2B76F -->
 <template>
   <div class="three-container">
     <canvas id="three-box" ref="threeBox"></canvas>

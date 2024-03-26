@@ -44,13 +44,10 @@ import { storeKey, useStore } from 'vuex'
 // import Emit from '@/components/emit/index.vue'
 
 /* 组件 */
-import Navigate from '@/components/navigate/index.vue'
 import Home from '@/components/info/index.vue'
 import CssWorld from '@/components/cssWorld/index.vue'
-import ComCanvas from '@/views/canvas/index.vue'
-import Loading from '@/components/loading/index.vue'
-// import ThreeJs from '@/components/threeJs/index.vue'
-// import ComVideo from '@/components/video/index.vue'
+import ComCanvas from '@/components/canvas/index.vue'
+
   
 export default defineComponent({
   setup() {
@@ -87,7 +84,6 @@ export default defineComponent({
     let load_bol = ref(true)
 
     onMounted(async () => {
-      console.log(123)
       await nextTick()
       setTimeout(() => {
         loadImage()

@@ -69,7 +69,7 @@ export default defineComponent({
         password: 'adm123',
         username: 'admin'
       })
-        .then((response) => {
+        .then((response: any) => {
           store.commit('user/SET_TOKEN', response['token'])
           store.commit('user/SET_ACCOUNT', response['name'])
           setToken(response['token'])

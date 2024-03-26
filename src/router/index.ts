@@ -66,7 +66,7 @@ const testRoutes: Array<RouteRecordRaw> = [
   {
     path: '/',
     redirect: 'index',
-    keepAlive: true,
+    // keepAlive: true,
     component: () => import('@/views/index/index.vue'),
     children: [
       {
@@ -84,11 +84,15 @@ const testRoutes: Array<RouteRecordRaw> = [
   },
   {
     path: '/cssWorld',
-    component: () => import('@/views/cssWorld/index.vue')
+    component: () => import('@/components/cssWorld/index.vue')
   },
   {
     path: '/canvas',
-    component: () => import('@/views/canvas/index.vue')
+    component: () => import('@/components/canvas/index.vue')
+  },
+  {
+    path: '/threeJs',
+    component: () => import('@/components/threeJs/base/index.vue')
   },
   /* 
    * vue3基础
@@ -114,6 +118,10 @@ const testRoutes: Array<RouteRecordRaw> = [
   {
     path: '/imageLazyLoading',
     component: () => import('@/views/plugs/imageLazyLoading/index.vue')
+  },
+  {
+    path: '/test',
+    component: () => import('@/views/test/index.vue')
   },
   homeRouter,
 ]

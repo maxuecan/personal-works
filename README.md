@@ -36,3 +36,13 @@ npm i eslint-plugin-prettier -D // eslint的prettier
   }),
 )
 简书：https://blog.csdn.net/qq_53225741/article/details/127113104
+
+
+vscode插件
+# px to rem & rpx & vw 像素转化
+# open in browser 打开浏览器q
+# prettier 代码格式化
+# vue-official 代码检查
+
+js插件
+# autofit.js 自适应页面尺寸（App.vue）

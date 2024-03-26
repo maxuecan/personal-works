@@ -1,4 +1,9 @@
 import { defineStore } from "pinia";
+import { getInfo, checkToken } from "@/api/user";
+
+type state = {
+  token: String
+}
 
 /*
   defineStore 是需要传参数的，其中第一个参数是id，就是一个唯一的值，
@@ -22,12 +27,12 @@ const useUser = defineStore('user', {
   },
   actions: {
     // 获取个人信息
-    getInfo(state) {
+    getInfo(state: state) {
       return new Promise((resolve, reject) => {
         getInfo({
           token: state.token
         })
-          .then((response) => {
+          .then((response: any) => {
             this.roles = response['roles']
     
             // 登录的时候需要调用一次checktoken
