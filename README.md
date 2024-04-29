@@ -46,3 +46,10 @@ vscode插件
 
 js插件
 # autofit.js 自适应页面尺寸（App.vue）
+
+我的世界资源
+# https://free3d.com/zh/3d-model/lamborghini-aventador-sport-44634.html
+
+借鉴作品
+# 人物运动:https://juejin.cn/post/7354948943912370214?searchId=2024040808341064FB8BAF7BE5D94974CD
+# 人物运动:https://juejin.cn/post/7351642274273918986?searchId=2024040808341064FB8BAF7BE5D94974CD

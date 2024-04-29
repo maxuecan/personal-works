@@ -46,6 +46,7 @@ declare module '@vue/runtime-core' {
     '26，CSS计数器counter()方法style参数示意实例页面': typeof import('./src/components/cssWorld/components/26，CSS计数器counter()方法style参数示意实例页面.vue')['default']
     '27，优化对象的同时宝石动画效果': typeof import('./src/components/threeJs/base/27，优化对象的同时宝石动画效果.vue')['default']
     '27，CSS计数器多个counter并存实例页面': typeof import('./src/components/cssWorld/components/27，CSS计数器多个counter并存实例页面.vue')['default']
+    '28，加载OBJ文件': typeof import('./src/components/threeJs/base/28，加载OBJ文件.vue')['default']
     '28，内联元素垂直padding也有作用实例页面': typeof import('./src/components/cssWorld/components/28，内联元素垂直padding也有作用实例页面.vue')['default']
     '29，内联元素padding与高度可控的分隔线实例页面': typeof import('./src/components/cssWorld/components/29，内联元素padding与高度可控的分隔线实例页面.vue')['default']
     '3，图元': typeof import('./src/components/threeJs/base/3，图元.vue')['default']

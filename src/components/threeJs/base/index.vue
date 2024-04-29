@@ -31,5 +31,6 @@
 // import myThree from './23，大数据处理.vue'
 // import myThree from './24，大数据处理2.vue'
 // import myThree from './25，大数据处理3.vue'
-import myThree from './26，大数据处理4.vue'
+// import myThree from './26，大数据处理4.vue'
+import myThree from './28，加载OBJ文件.vue'
 </script>

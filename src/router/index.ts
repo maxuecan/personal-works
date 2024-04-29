@@ -123,6 +123,10 @@ const testRoutes: Array<RouteRecordRaw> = [
     path: '/test',
     component: () => import('@/views/test/index.vue')
   },
+  {
+    path: '/my-world',
+    component: () => import('@/views/my-world/index1.vue')
+  },
   homeRouter,
 ]
 /* 测试路由 */
