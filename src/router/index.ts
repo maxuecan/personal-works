@@ -67,12 +67,14 @@ const testRoutes: Array<RouteRecordRaw> = [
     path: '/',
     redirect: 'index',
     // keepAlive: true,
-    component: () => import('@/views/index/index.vue'),
+    // component: () => import('@/views/index/index.vue'),
+    component: () => import('@/views/my-world/index2.vue'),
     children: [
       {
         path: 'index',
         name: 'Index',
-        component: () => import('@/views/index/index.vue'),
+        // component: () => import('@/views/index/index.vue'),
+        component: () => import('@/views/my-world/index2.vue'),
         // meta: {
         //   title: 'currentData',
         //   icon: 'dashboard',
@@ -125,7 +127,7 @@ const testRoutes: Array<RouteRecordRaw> = [
   },
   {
     path: '/my-world',
-    component: () => import('@/views/my-world/index1.vue')
+    component: () => import('@/views/my-world/index2.vue')
   },
   homeRouter,
 ]

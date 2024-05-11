@@ -53,3 +53,6 @@ js插件
 借鉴作品
 # 人物运动:https://juejin.cn/post/7354948943912370214?searchId=2024040808341064FB8BAF7BE5D94974CD
 # 人物运动:https://juejin.cn/post/7351642274273918986?searchId=2024040808341064FB8BAF7BE5D94974CD
+
+场景资源
+# https://polyhaven.com/zh/hdris
