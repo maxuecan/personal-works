@@ -129,6 +129,10 @@ const testRoutes: Array<RouteRecordRaw> = [
     path: '/my-world',
     component: () => import('@/views/my-world/index2.vue')
   },
+  {
+    path: '/file-demo',
+    component: () => import('@/components/file/index.vue')
+  },
   homeRouter,
 ]
 /* 测试路由 */
