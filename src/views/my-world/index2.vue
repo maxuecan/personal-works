@@ -49,18 +49,21 @@ function main() {
     let scene = createScene()
 
     // 添加天空盒
-    // createSky(scene)
+    createSky(scene)
+    
+    // 创建草地
+    createGrass(scene)
 
     // 创建地板
-    let meterial = new THREE.MeshPhongMaterial({
-        color: 0xffffff
-    })
-    let PlaneGeometry = new THREE.PlaneGeometry(50, 50)
-    let plane = new THREE.Mesh(PlaneGeometry, meterial)
-    plane.position.set(0, -1, 0)
-    plane.rotation.x = -Math.PI/2
-    plane.receiveShadow = true
-    scene.add(plane)
+    // let meterial = new THREE.MeshPhongMaterial({
+    //     color: 0xffffff
+    // })
+    // let PlaneGeometry = new THREE.PlaneGeometry(50, 50)
+    // let plane = new THREE.Mesh(PlaneGeometry, meterial)
+    // plane.position.set(0, -1, 0)
+    // plane.rotation.x = -Math.PI/2
+    // plane.receiveShadow = true
+    // scene.add(plane)
 
     // 创建球体模拟灯光
     // let SphereGemoetry = new THREE.SphereGeometry(1, 20, 20)
@@ -306,17 +309,17 @@ function createSunRingMesh(sunRingMaterial: any) {
 // 创建云层
 function createCloud(scene: THREE.Scene) {
     // 纹理图
-    let cloud_num = 15
+    let cloud_num = 100
     let clouds = new THREE.Group()
     let sprites = [
         new THREE.TextureLoader().load(new URL('../../assets/threejs/cloud.png', import.meta.url).href),
-        new THREE.TextureLoader().load(new URL('../../assets/threejs/cloud2.png', import.meta.url).href),
-        new THREE.TextureLoader().load(new URL('../../assets/threejs/cloud3.png', import.meta.url).href),
-        new THREE.TextureLoader().load(new URL('../../assets/threejs/cloud4.png', import.meta.url).href)
+        // new THREE.TextureLoader().load(new URL('../../assets/threejs/cloud2.png', import.meta.url).href),
+        // new THREE.TextureLoader().load(new URL('../../assets/threejs/cloud3.png', import.meta.url).href),
+        // new THREE.TextureLoader().load(new URL('../../assets/threejs/cloud4.png', import.meta.url).href)
     ]
     let x = 1
     for (let i = 0; i < cloud_num; i++) {
-        for (let j = 0; j < 4; j++) {
+        for (let j = 0; j < 1; j++) {
             let cloud = new THREE.Sprite(new THREE.SpriteMaterial({
                 map: sprites[j],
                 transparent: true,
@@ -337,11 +340,49 @@ function createCloud(scene: THREE.Scene) {
 
 // 创建天空盒
 function createSky(scene: THREE.Scene) {
-    let _texture = new URL('../../assets/threejs/sky.png', import.meta.url).href
-    let loader = new THREE.TextureLoader()
-    let bg_texture = loader.load(_texture)
-    bg_texture.colorSpace = THREE.SRGBColorSpace
-    scene.background = bg_texture
+    // let _texture = new URL('../../assets/threejs/sky.png', import.meta.url).href
+    // let loader = new THREE.TextureLoader()
+    // let bg_texture = loader.load(_texture)
+    // bg_texture.colorSpace = THREE.SRGBColorSpace
+    // scene.background = bg_texture
+    let sky = [
+        new URL('../../components/threeJS/source/sky/posx.jpg', import.meta.url).href,
+        new URL('../../components/threeJS/source/sky/negx.jpg', import.meta.url).href,
+        new URL('../../components/threeJS/source/sky/posy.jpg', import.meta.url).href,
+        new URL('../../components/threeJS/source/sky/negy.jpg', import.meta.url).href,
+        new URL('../../components/threeJS/source/sky/posz.jpg', import.meta.url).href,
+        new URL('../../components/threeJS/source/sky/negz.jpg', import.meta.url).href
+    ]
+    let cubeLoader = new THREE.CubeTextureLoader()
+    scene.background = cubeLoader.load(sky)
+}
+
+// 创建草地
+function createGrass(scene: THREE.Scene) {
+    // let _texture = new URL('../../assets/threejs/grass.jpg', import.meta.url).href
+    // let loader = new THREE.TextureLoader()
+    // loader.load(_texture, (groundTexture) => {
+    //     // groundTexture.wrapS = groundTexture.wrapT = THREE.RepeatWrapping
+    //     // // groundTexture.repeat.set(repeatX / 5, repeatY / 5)
+    //     // groundTexture.anisotropy = 16
+    //     // // groundTexture.encoding = THREE.RGBEncoding
+
+    //     // const groundMaterial = new THREE.MeshLambertMaterial({ map: groundTexture })
+    //     // groundMaterial.side = THREE.FrontSide
+
+    //     // const mesh = new THREE.Mesh(new THREE.PlaneBufferGeometry(width, height), groundMaterial)
+    //     // mesh.rotation.x = -Math.PI / 2
+    //     // mesh.position.y = 0
+    //     // mesh.receiveShadow = true
+
+    //     let PlaneGeometry = new THREE.PlaneGeometry(50, 50)
+    //     let groundMaterial = new THREE.MeshLambertMaterial({ map: groundTexture })
+    //     let plane = new THREE.Mesh(PlaneGeometry, groundMaterial)
+    //     plane.position.set(0, -1, 0)
+    //     plane.rotation.x = -Math.PI/2
+    //     plane.receiveShadow = true
+    //     scene.add(plane)
+    // })
 }
 
 // 创建人物

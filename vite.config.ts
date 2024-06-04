@@ -50,5 +50,11 @@ export default defineConfig({
   server: {
     host: true,
     open: true,
+    proxy: {
+      '/api': {
+        target: '',
+        changeOrigin: true
+      }
+    }
   }
 })

@@ -130,6 +130,8 @@
       </div>
       <!-- 暂无评论的空状态 -->
       <el-empty :description="emptyText" v-show="comments.length === 0"></el-empty>
+    
+      <input type="file" id="videoFileInput" accept=".webm">
     </div>
   </template>
   <script>
@@ -227,6 +229,11 @@
     created() {
       // 获取评论数据
       // this.getCommentList();
+    },
+    mounted() {
+      this.$nextTick(() => {
+
+      })
     },
     methods: {
       // 唤起文件选择
