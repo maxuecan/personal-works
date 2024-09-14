@@ -30,7 +30,7 @@ npm i eslint-plugin-prettier -D // eslint的prettier
 
 配置vite.config.js.ts文件
 (
-  import eslintPlugin from 'vite-plugin-compression'
+  import eslintPlugin from 'vite-plugin-eslint'
   eslintPlugin({
     include: ['src/**/*.ts', 'src/**/*.vue', 'src/*.ts', 'src/*.vue']
   }),
@@ -40,7 +40,7 @@ npm i eslint-plugin-prettier -D // eslint的prettier
 
 vscode插件
 # px to rem & rpx & vw 像素转化
-# open in browser 打开浏览器q
+# open in browser 打开浏览器
 # prettier 代码格式化
 # vue-official 代码检查
 
@@ -57,3 +57,18 @@ js插件
 
 场景资源
 # https://polyhaven.com/zh/hdris
+
+解决方案
+http下浏览器调用设备权限
+# https://blog.csdn.net/anzhenxi3529/article/details/121624415 
+
+blender教程
+# https://i.youku.com/u/UMTgzMTA0NDc2MA
+# https://docs.blender.org/manual/zh-hans/latest/interface/window_system/workspaces.html
+
+
+主题且黄
+# https://juejin.cn/post/7042605241023332389?from=search-suggest
+# https://juejin.cn/post/7049384448256639006?from=search-suggest
+# https://blog.csdn.net/Echocyd/article/details/106350793
+# https://juejin.cn/post/7341797865108766746?from=search-suggest#heading-3

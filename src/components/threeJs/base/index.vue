@@ -36,5 +36,6 @@
 // import myThree from './29，模拟太阳运动.vue'
 // import myThree from './30，太阳.vue'
 // import myThree from './31，云.vue'
-import myThree from './33，天空盒子.vue'
+// import myThree from './33，天空盒子.vue'
+import myThree from './35，物体跟随鼠标移动.vue'
 </script>

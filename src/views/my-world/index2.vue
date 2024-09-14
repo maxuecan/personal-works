@@ -1,6 +1,6 @@
 <template>
     <div class="container">
-        <canvas id="my-world" ref="myWorld"></canvas>
+        <canvas id="my-world"></canvas>
     </div>
 </template>
 
@@ -11,8 +11,8 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import { RGBELoader } from 'three/examples/jsm/loaders/RGBELoader'
 import { TWEEN } from 'three/examples/jsm/libs/tween.module.min.js'
 import {
-    templateVertexShader,
-    templateFragmentShader,
+    // templateVertexShader,
+    // templateFragmentShader,
     sunNoiseVertexShader,
     sunNoiseFragmentShader,
     sunShapeVertexShader,
@@ -38,7 +38,8 @@ function main() {
     let tween;
 
     const position = new THREE.Vector3(-20, 15, -15)
-    const canvas = ctx.$refs.myWorld;
+    // const canvas = ctx.$refs.myWorld2;
+    const canvas = document.getElementById('my-world')
     // 渲染器
     const renderer = createRenderer(canvas);
     // 相机

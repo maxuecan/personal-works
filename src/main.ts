@@ -7,6 +7,7 @@ import store from '@/store'
 import '@/permission'
 
 import '@/style/common.scss'
+// import '@/style/home.scss'
 
 import ElementPlus from 'element-plus'
 import zhCn from 'element-plus/es/locale/lang/zh-cn'

@@ -3,19 +3,27 @@ import vue from '@vitejs/plugin-vue'
 const path = require('path')
 const pathResolve = (dir: string) => path.resolve(__dirname, dir)
 import viteCompression from 'vite-plugin-compression'
-import eslintPlugin from 'vite-plugin-compression'
-
+import eslintPlugin from 'vite-plugin-eslint'
 import AutoImport from 'unplugin-auto-import/vite'
 import Components from 'unplugin-vue-components/vite'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  css:{
+    preprocessorOptions:{
+      scss:{
+        additionalData: '@import "@/style/home.scss";',
+        themen: '@import "@/style/_theme.scss";',
+        // handle: '@import "@/style/_handle.scss;"'
+      }
+    }
+  },
   plugins: [
     vue(),
-    eslintPlugin({
-      include: ['src/**/*.ts', 'src/**/*.vue', 'src/*.ts', 'src/*.vue'],
-    }),
+    // eslintPlugin({
+    //   include: ['src/**/*.ts', 'src/**/*.vue', 'src/*.ts', 'src/*.vue']
+    // }),
     AutoImport({
       resolvers: [ElementPlusResolver()]
     }),

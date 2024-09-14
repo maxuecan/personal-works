@@ -1,0 +1,8 @@
+$Bg: rgba(0, 168, 205, 1);
+$basic-border: 1px solid black;
+$font20: 20px;
+
+@mixin font32 {
+  font-size: 32px;
+  font-weight: 600;
+}

@@ -1,6 +1,6 @@
 <template>
     <div class="container">
-        <canvas id="my-world" ref="myWorld"></canvas>
+        <canvas id="my-world" ref="myWorld1"></canvas>
     </div>
 </template>
 
@@ -392,7 +392,7 @@ function main() {
     let tween: TWEEN
     let clickEffectObj
 
-    const canvas = ctx.$refs.myWorld
+    const canvas = ctx.$refs.myWorld1
 
     // 渲染器 (创建一个渲染器并设置大小，WebGLRenderer将会使用电脑显卡来渲染场景)
     const renderer = new THREE.WebGLRenderer({

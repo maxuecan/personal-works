@@ -133,6 +133,10 @@ const testRoutes: Array<RouteRecordRaw> = [
     path: '/file-demo',
     component: () => import('@/components/file/index.vue')
   },
+  {
+    path: '/scss',
+    component: () => import('@/components/scss/index.vue')
+  },
   homeRouter,
 ]
 /* 测试路由 */
