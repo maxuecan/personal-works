@@ -63,6 +63,7 @@ declare module '@vue/runtime-core' {
     '34，margin父子合并与头图掉落实例页面': typeof import('./src/components/cssWorld/components/34，margin父子合并与头图掉落实例页面.vue')['default']
     '35，物体跟随鼠标移动': typeof import('./src/components/threeJs/base/35，物体跟随鼠标移动.vue')['default']
     '35，margin(auto)的计算规则示意实例页面': typeof import('./src/components/cssWorld/components/35，margin(auto)的计算规则示意实例页面.vue')['default']
+    '36，太空': typeof import('./src/components/threeJs/base/36，太空.vue')['default']
     '36，margin(auto)与绝对定位元素的水平垂直居中实例页面': typeof import('./src/components/cssWorld/components/36，margin(auto)与绝对定位元素的水平垂直居中实例页面.vue')['default']
     '37，border绘制与color变色实例页面': typeof import('./src/components/cssWorld/components/37，border绘制与color变色实例页面.vue')['default']
     '38，优雅增加点击区域之搜索框清除按钮实例页面': typeof import('./src/components/cssWorld/components/38，优雅增加点击区域之搜索框清除按钮实例页面.vue')['default']

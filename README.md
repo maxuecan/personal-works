@@ -54,6 +54,7 @@ js插件
 # 人物运动:https://juejin.cn/post/7354948943912370214?searchId=2024040808341064FB8BAF7BE5D94974CD
 # 人物运动:https://juejin.cn/post/7351642274273918986?searchId=2024040808341064FB8BAF7BE5D94974CD
 # 左本项目 http://zuoben.top/pages/resource/
+# 小车运动:https://juejin.cn/post/7350181789531373619?searchId=20240328114158E0986DEB274115E98DC4
 
 场景资源
 # https://polyhaven.com/zh/hdris
@@ -67,8 +68,17 @@ blender教程
 # https://docs.blender.org/manual/zh-hans/latest/interface/window_system/workspaces.html
 
 
-主题且黄
+主题切换
 # https://juejin.cn/post/7042605241023332389?from=search-suggest
 # https://juejin.cn/post/7049384448256639006?from=search-suggest
 # https://blog.csdn.net/Echocyd/article/details/106350793
 # https://juejin.cn/post/7341797865108766746?from=search-suggest#heading-3
+
+代码规范
+# https://juejin.cn/post/6893891476913291278?searchId=20240522153147D05921574B41967E0E69
+
+ios app 发布
+# https://zhuanlan.zhihu.com/p/677066528
+
+手写nextTick
+# https://juejin.cn/post/7399530640860643380
