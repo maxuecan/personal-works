@@ -82,3 +82,12 @@ ios app 发布
 
 手写nextTick
 # https://juejin.cn/post/7399530640860643380
+
+免费模型
+# https://sketchfab.com/
+
+稀土文章
+# https://juejin.cn/post/7361720687956459531  // 模型资源
+
+模型加载，骨骼运动
+# https://juejin.cn/post/7272571989821784123 

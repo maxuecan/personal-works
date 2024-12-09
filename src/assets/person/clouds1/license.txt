@@ -1,0 +1,11 @@
+Model Information:
+* title:	Stylized clouds
+* source:	https://sketchfab.com/3d-models/stylized-clouds-e326c36890364526910cba03c1393ebc
+* author:	lavakongen (https://sketchfab.com/lavakongen)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Stylized clouds" (https://sketchfab.com/3d-models/stylized-clouds-e326c36890364526910cba03c1393ebc) by lavakongen (https://sketchfab.com/lavakongen) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

@@ -1,0 +1,11 @@
+Model Information:
+* title:	Islands
+* source:	https://sketchfab.com/3d-models/islands-3b30c2af4f15434d9a4343d5ed6a2a70
+* author:	RiccardoC. (https://sketchfab.com/MaxterDragon1)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Islands" (https://sketchfab.com/3d-models/islands-3b30c2af4f15434d9a4343d5ed6a2a70) by RiccardoC. (https://sketchfab.com/MaxterDragon1) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

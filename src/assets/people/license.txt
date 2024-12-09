@@ -1,0 +1,11 @@
+Model Information:
+* title:	Rivet from Ratchet & Clank Rift Apart (light)
+* source:	https://sketchfab.com/3d-models/rivet-from-ratchet-clank-rift-apart-light-662c95b08279403a8da5f9a02c39fac2
+* author:	Théo Domon (https://sketchfab.com/Gloomeskk)
+
+Model License:
+* license type:	CC-BY-NC-4.0 (http://creativecommons.org/licenses/by-nc/4.0/)
+* requirements:	Author must be credited. No commercial use.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Rivet from Ratchet & Clank Rift Apart (light)" (https://sketchfab.com/3d-models/rivet-from-ratchet-clank-rift-apart-light-662c95b08279403a8da5f9a02c39fac2) by Théo Domon (https://sketchfab.com/Gloomeskk) licensed under CC-BY-NC-4.0 (http://creativecommons.org/licenses/by-nc/4.0/)

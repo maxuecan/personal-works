@@ -9,6 +9,7 @@ import * as THREE from 'three'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import { RGBELoader } from 'three/examples/jsm/loaders/RGBELoader'
+import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader'
 import { TWEEN } from 'three/examples/jsm/libs/tween.module.min.js'
 import {
     // templateVertexShader,
@@ -32,6 +33,34 @@ onMounted(async () => {
 let camera: THREE.Camera;
 let controls: OrbitControls;
 let tween: any;
+let bodyMaterial = new THREE.MeshPhysicalMaterial({
+	color: 0xff0000,
+	metalness: 1.0,
+	roughness: 0.5,
+	clearcoat: 1.0,
+	clearcoatRoughness: 0.03
+})
+// 汽车轮毂的材质，采用了标准网格材质，threejs解析gltf模型，会用两种材质PBR材质去解析
+let detailsMaterial = new THREE.MeshStandardMaterial({
+	color: 0xffffff,
+	metalness: 1.0,
+	roughness: 0.5
+})
+// 汽车玻璃的材质
+let glassMaterial = new THREE.MeshPhysicalMaterial({
+	color: 0xffffff,
+	metalness: 0.25,
+	roughness‌: 0,
+	transmission: 10
+})
+/**
+ * 汽车模型
+ */
+// const _car_texture = new URL('../../assets/dream-car/gltf/ferrari_ao.png', import.meta.url).href
+// const _car_texture2 = new URL('../../assets/dream-car/gltf/ferrari.glb', import.meta.url).href
+// const shadow = new THREE.TextureLoader().load(_car_texture)
+// const dracoLoader = new DRACOLoader()
+// dracoLoader.setDecoderPath('./draco/gltf/')
 
 function main() {
     let clock = new THREE.Clock();
@@ -50,10 +79,16 @@ function main() {
     let scene = createScene()
 
     // 添加天空盒
-    createSky(scene)
+    // createSky(scene)
     
     // 创建草地
-    createGrass(scene)
+    // createGrass(scene)
+
+    // 创建建筑
+    // createBuilding(scene)
+
+    // 创建跑车
+    // createDreamCar(scene)
 
     // 创建地板
     // let meterial = new THREE.MeshPhongMaterial({
@@ -172,11 +207,23 @@ function main() {
     scene.add(sunRingMesh)
 
     // 创建云朵
-    createCloud(scene)
+    // createCloud(scene)
+
+    // 创建dragon ball
+    // createDragonBall(scene)
 
     // 创建人物
     let minxerArr: string | any[] = []
-    createPeople(scene, minxerArr)
+    // createPeople(scene, minxerArr)
+
+    // createPeople2(scene)
+
+    // 创建鸟
+    let bridMinxerArr: string | any[] = []
+    createBird(scene, bridMinxerArr)
+
+    // 创建home_dioroma
+    createHomeDioroma(scene)
 
     // 渲染
     function render() {
@@ -187,11 +234,17 @@ function main() {
         }
 
         let dt = clock.getDelta()
+        // console.log(minxerArr)
         for (let i = 0; i < minxerArr.length; i++) {
             minxerArr[i].update(dt)
         }
 
         TWEEN.update()
+
+
+        for (let i = 0; i < bridMinxerArr.length; i++) {
+            bridMinxerArr[i].update(dt)
+        }
 
         let elapsedTime = clock.getElapsedTime()
         let mousePos = new THREE.Vector2(0, 0)
@@ -211,7 +264,7 @@ function main() {
     }
 
     // 监听单机拾取对象初始化球体
-    document.addEventListener('click', pickupObjects, false)
+    // document.addEventListener('click', pickupObjects, false)
 
     requestAnimationFrame(render)
 }
@@ -270,7 +323,7 @@ function createScene() {
     // 场景纹理图
     let _texture = new URL('../../assets/texture/venice_sunset_1k.hdr', import.meta.url).href
     let scene = new THREE.Scene()
-    scene.background = new THREE.Color('#000000')
+    scene.background = new THREE.Color('#8ec3ed') // #8ec3ed #000000
     scene.environment = new RGBELoader().load(_texture) // 控制场景的渲染方式
     scene.environment.mapping = THREE.EquirectangularReflectionMapping // 环境贴图的映射方式
     // scene.fog = new THREE.Fog(0x333333, 10, 15) // 雾化效果
@@ -324,15 +377,15 @@ function createCloud(scene: THREE.Scene) {
             let cloud = new THREE.Sprite(new THREE.SpriteMaterial({
                 map: sprites[j],
                 transparent: true,
-                opacity: 0.5
+                opacity: 1
             }))
             cloud.position.set(
-                (Math.random() * 2 - 1)  * (x + Math.random() * 10),
-                (10 + Math.random() * (10/5)),
-                (Math.random() * 2 - 1) * (3 + Math.random() * 10)
+                (Math.random() * 2 - 1)  * (x + Math.random() * 5),
+                (Math.random()* 2),
+                (Math.random() * 2 - 1) * (3 + Math.random() * 5)
             )
             cloud.scale.set(5, 5, 5)
-            x += 0.2
+            x += 0.1
             clouds.add(cloud)
         }
     }
@@ -360,6 +413,13 @@ function createSky(scene: THREE.Scene) {
 
 // 创建草地
 function createGrass(scene: THREE.Scene) {
+    let _texture = new URL('../../assets/person/grass/scene.gltf', import.meta.url).href
+    let loader = new GLTFLoader()
+    loader.setDRACOLoader(new DRACOLoader())
+    loader.load(_texture, (gltf) => {
+        let _obj = gltf.scene
+        scene.add(_obj)
+    })
     // let _texture = new URL('../../assets/threejs/grass.jpg', import.meta.url).href
     // let loader = new THREE.TextureLoader()
     // loader.load(_texture, (groundTexture) => {
@@ -386,6 +446,54 @@ function createGrass(scene: THREE.Scene) {
     // })
 }
 
+// 创建建筑
+function createBuilding(scene: THREE.Scene) {
+    let _texture = new URL('../../assets/person/house/scene.gltf', import.meta.url).href
+    let loader = new GLTFLoader()
+    loader.setDRACOLoader(new DRACOLoader())
+    loader.load(_texture, (gltf) => {
+        let _obj = gltf.scene
+        _obj.scale.set(0.5, 0.5, 0.5)
+        _obj.rotation.set(0, -Math.PI / 2, 0)
+        _obj.position.set(-10, 0, -10)
+        scene.add(_obj)
+    })
+
+    let _texture2 = new URL('../../assets/person/house1/scene.gltf', import.meta.url).href
+    let loader2 = new GLTFLoader()
+    loader2.setDRACOLoader(new DRACOLoader())
+    loader2.load(_texture2, (gltf) => {
+        let _obj = gltf.scene
+        _obj.traverse((o) => {
+            // 启用投射和接收阴影的能力
+            o.castShadow = true
+            o.receiveShadow = true
+            // o.material = material
+        })
+        _obj.scale.set(0.02, 0.02, 0.02)
+        // _obj.rotation.set(0, -Math.PI / 2, 0)
+        _obj.position.set(10, 0, -10)
+        scene.add(_obj)
+    })
+}
+
+// 创建dragon ball
+function createDragonBall(scene: THREE.Scene) {
+    let _texture = new URL('../../assets/person/dragon_ball/scene.gltf', import.meta.url).href
+    let loader = new GLTFLoader()
+    loader.setDRACOLoader(new DRACOLoader())
+    loader.load(_texture, (gltf) => {
+        let _obj = gltf.scene
+        _obj.traverse((o) => {
+            // 启用投射和接收阴影的能力
+            o.castShadow = true
+            o.receiveShadow = true
+            // o.material = material
+        })
+        scene.add(_obj)
+    })
+}
+
 // 创建人物
 type T = any
 let peopleObj: THREE.Object3D<THREE.Object3DEventMap> | THREE.AnimationObjectGroup, 
@@ -409,6 +517,106 @@ function createPeople(scene: any, minxerArr: Array<T>) {
         activeAction = mixer.clipAction(peopleAnimations[0])
         activeAction.play()
     })
+}
+
+// 创建人物2
+function createPeople2(scene: any) {
+    const _texture = new URL('../../assets/people/scene.gltf', import.meta.url).href
+    let loader = new GLTFLoader()
+    loader.setDRACOLoader(new DRACOLoader())
+    loader.load(_texture, result => {
+        console.log(result)
+        // result.scene.traverse((child) => {
+        //     console.log(child)
+        //     // if (child.isMesh) {
+        //     //     child.material.metalness = 0;
+        //     //     child.material.roughness = 1;
+        //     // }
+        // })
+        peopleObj = result.scene
+        peopleObj.scale.set(1, 1, 1)
+        peopleObj.position.set(5, 0, 0)
+        scene.add(peopleObj)
+        // mixer = new THREE.AnimationMixer(peopleObj);
+        // peopleObj.animations.forEach((clip) => {
+        //   mixer.clipAction(clip).play();
+        // });
+    })
+}
+
+let birdMixer, birdAction
+function createBird(scene: any, bridMinxerArr: any) {
+    const _texture = new URL('../../assets/bird/scene.gltf', import.meta.url).href
+    let loader = new GLTFLoader()
+    loader.setDRACOLoader(new DRACOLoader())
+    loader.load(_texture, result => {
+        let _obj = result.scene
+        _obj.traverse((o) => {
+            // 启用投射和接收阴影的能力
+            o.castShadow = true
+            o.receiveShadow = true
+        })
+
+        _obj.scale.set(0.01, 0.01, 0.01)
+        _obj.position.set(
+            -25 + +(Math.random() * 10).toFixed(1), 
+            0, 
+            Math.random() * 10
+        )
+        _obj.rotation.y = Math.PI / 3
+        scene.add(_obj)
+
+        // 动画数据
+        const animations = result.animations
+        // 创建模型动作混合器
+        birdMixer = new THREE.AnimationMixer(_obj) 
+        bridMinxerArr.push(birdMixer)
+        birdAction = birdMixer.clipAction(animations[0])
+
+        birdAction.play()
+    })
+}
+
+function createHomeDioroma(scene: THREE.Scene) {
+    const _texture = new URL('../../assets/person/home_dioroma/scene.gltf', import.meta.url).href
+    let loader = new GLTFLoader()
+    loader.setDRACOLoader(new DRACOLoader())
+    loader.load(_texture, result => {
+        let _obj = result.scene
+        _obj.traverse((o) => {
+            // 启用投射和接收阴影的能力
+            o.castShadow = true
+            o.receiveShadow = true
+        })
+
+        _obj.scale.set(0.1, 0.1, 0.1)
+        _obj.position.set(
+            -50 + +(Math.random() * 10).toFixed(1), 
+            -10 + +(Math.random() * 10).toFixed(1), 
+            -100 + +(Math.random() * 10).toFixed(1)
+        )
+        _obj.rotation.y = Math.PI
+        scene.add(_obj)
+    })
+
+    // const _texture2 = new URL('../../assets/person/the_last_stronghold_animated/scene.gltf', import.meta.url).href
+    // loader.load(_texture2, result => {
+    //     let _obj = result.scene
+    //     _obj.traverse((o) => {
+    //         // 启用投射和接收阴影的能力
+    //         // o.castShadow = true
+    //         // o.receiveShadow = true
+    //     })
+
+    //     _obj.scale.set(1, 1, 1)
+    //     _obj.position.set(
+    //         0,
+    //         -10,
+    //         -10
+    //     )
+    //     _obj.rotation.y = Math.PI
+    //     scene.add(_obj)
+    // })
 }
 
 // 拾取对象
@@ -496,6 +704,55 @@ function resizeRendererToDisplaySize(renderer: { domElement: any; setSize: (arg0
         renderer.setSize(width, height, false)
     }
     return needResize
+}
+
+// 创建跑车
+function createDreamCar(scene: any) {
+    const loader = new GLTFLoader()
+    loader.setDRACOLoader(dracoLoader)
+
+    loader.load(_car_texture2, function(gltf) {
+        gltf.scene.traverse((child) => {
+            if (child.isMesh) {
+                child.material.metalness = 0;
+                child.material.roughness = 1;
+            }
+        })
+
+		const carModel:any = gltf.scene.children[0]
+		// carModel.getObjectByName('body').material = bodyMaterial
+		// carModel.getObjectByName('rim_fl').material = detailsMaterial
+		// carModel.getObjectByName('rim_fr').material = detailsMaterial
+		// carModel.getObjectByName('rim_rr').material = detailsMaterial
+		// carModel.getObjectByName('rim_rl').material = detailsMaterial
+		// carModel.getObjectByName('trim').material = detailsMaterial
+
+		// carModel.getObjectByName('glass').material = glassMaterial
+
+		// wheels.push(
+		// 	carModel.getObjectByName('rim_fl'),
+		// 	carModel.getObjectByName('rim_fr'),
+		// 	carModel.getObjectByName('rim_rr'),
+		// 	carModel.getObjectByName('rim_rl')
+		// )
+
+		// shadow
+		const mesh = new THREE.Mesh(
+			new THREE.PlaneGeometry(0.655 * 4, 1.3 * 4),
+			new THREE.MeshBasicMaterial({
+				map: shadow,
+				blending: THREE.MultiplyBlending,
+				toneMapped: false,
+				transparent: true
+			})
+		)
+
+		// 设置阴影效果x轴方向的角度
+		mesh.rotation.x = -Math.PI / 2
+		mesh.renderOrder = 2
+		carModel.add(mesh)
+		scene.add(carModel)
+	})
 }
 
 </script>
