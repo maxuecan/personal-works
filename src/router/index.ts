@@ -68,13 +68,13 @@ const testRoutes: Array<RouteRecordRaw> = [
     redirect: 'index',
     // keepAlive: true,
     // component: () => import('@/views/index/index.vue'),
-    component: () => import('@/views/my-world/index2.vue'),
+    component: () => import('@/views/my-world/index3.vue'),
     children: [
       {
         path: 'index',
         name: 'Index',
         // component: () => import('@/views/index/index.vue'),
-        component: () => import('@/views/my-world/index2.vue'),
+        component: () => import('@/views/my-world/index3.vue'),
         // meta: {
         //   title: 'currentData',
         //   icon: 'dashboard',

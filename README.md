@@ -91,3 +91,6 @@ ios app 发布
 
 模型加载，骨骼运动
 # https://juejin.cn/post/7272571989821784123 
+
+gltf模型检查
+# https://gltf-viewer.donmccurdy.com/

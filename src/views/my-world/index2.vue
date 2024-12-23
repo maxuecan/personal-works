@@ -78,6 +78,8 @@ function main() {
     // 场景
     let scene = createScene()
 
+    // 创建天空盒子
+    createSky(scene)
     // 添加天空盒
     // createSky(scene)
     
@@ -118,93 +120,93 @@ function main() {
     // scene.add(createGrid())
 
     // 创建噪声网格
-    const sunNoiseMaterial = new THREE.ShaderMaterial({
-        vertexShader: sunNoiseVertexShader,
-        fragmentShader: sunNoiseFragmentShader,
-        side: THREE.DoubleSide,
-        uniforms: {
-            uTime: {
-                value: 0
-            },
-            uMouse: {
-                value: new THREE.Vector2(0, 0)
-            },
-            uResolution: {
-                value: new THREE.Vector2(window.innerWidth, window.innerHeight)
-            }
-        }
-    });
-    const sunNoiseMesh = createSunNoiseMesh(sunNoiseMaterial)
-    sunNoiseMesh.position.copy(new THREE.Vector3(0, 0, 0))
+    // const sunNoiseMaterial = new THREE.ShaderMaterial({
+    //     vertexShader: sunNoiseVertexShader,
+    //     fragmentShader: sunNoiseFragmentShader,
+    //     side: THREE.DoubleSide,
+    //     uniforms: {
+    //         uTime: {
+    //             value: 0
+    //         },
+    //         uMouse: {
+    //             value: new THREE.Vector2(0, 0)
+    //         },
+    //         uResolution: {
+    //             value: new THREE.Vector2(window.innerWidth, window.innerHeight)
+    //         }
+    //     }
+    // });
+    // const sunNoiseMesh = createSunNoiseMesh(sunNoiseMaterial)
+    // sunNoiseMesh.position.copy(new THREE.Vector3(0, 0, 0))
 
     // 创建立方体离屏渲染目标，将其作为太阳本体的噪声贴图
-    const cubeRt = new THREE.WebGLCubeRenderTarget(256)
-    const cubeCamera = new THREE.CubeCamera(0.1, 10, cubeRt)
-    const cubeScene = new THREE.Scene()
-    cubeScene.add(sunNoiseMesh)
+    // const cubeRt = new THREE.WebGLCubeRenderTarget(256)
+    // const cubeCamera = new THREE.CubeCamera(0.1, 10, cubeRt)
+    // const cubeScene = new THREE.Scene()
+    // cubeScene.add(sunNoiseMesh)
 
     // 创建太阳本体网格
-    const sunShapeMaterial = new THREE.ShaderMaterial({
-        vertexShader: sunShapeVertexShader,
-        fragmentShader: sunShapeFragmentShader,
-        side: THREE.DoubleSide,
-        uniforms: {
-            uTime: {
-                value: 0
-            },
-            uMouse: {
-                value: new THREE.Vector2(0, 0)
-            },
-            uResolution: {
-                value: new THREE.Vector2(window.innerWidth, window.innerHeight)
-            },
-            uNoiseTexture: {
-                value: null
-            },
-            uVelocity: {
-                value: 0.05
-            },
-            uBrightness: {
-                value: 0.33
-            },
-            uStagger: {
-                value: 16
-            }
-        }
-    });
-    const sunShapeMesh = createSunShapeMesh(sunShapeMaterial)
-    sunShapeMesh.position.copy(position)
+    // const sunShapeMaterial = new THREE.ShaderMaterial({
+    //     vertexShader: sunShapeVertexShader,
+    //     fragmentShader: sunShapeFragmentShader,
+    //     side: THREE.DoubleSide,
+    //     uniforms: {
+    //         uTime: {
+    //             value: 0
+    //         },
+    //         uMouse: {
+    //             value: new THREE.Vector2(0, 0)
+    //         },
+    //         uResolution: {
+    //             value: new THREE.Vector2(window.innerWidth, window.innerHeight)
+    //         },
+    //         uNoiseTexture: {
+    //             value: null
+    //         },
+    //         uVelocity: {
+    //             value: 0.05
+    //         },
+    //         uBrightness: {
+    //             value: 0.33
+    //         },
+    //         uStagger: {
+    //             value: 16
+    //         }
+    //     }
+    // });
+    // const sunShapeMesh = createSunShapeMesh(sunShapeMaterial)
+    // sunShapeMesh.position.copy(position)
     // 给太阳本体创建光源
-    createSunShapeLight(sunShapeMesh)
-    scene.add(sunShapeMesh)
+    // createSunShapeLight(sunShapeMesh)
+    // scene.add(sunShapeMesh)
 
-    let smallBall = new THREE.Mesh(
-        new THREE.SphereGeometry(0.1, 20, 20),
-        new THREE.MeshBasicMaterial({color: 0xff0000})
-    )
-    smallBall.position.set(0, 10, 0)
-    scene.add(smallBall)
+    // let smallBall = new THREE.Mesh(
+    //     new THREE.SphereGeometry(0.1, 20, 20),
+    //     new THREE.MeshBasicMaterial({color: 0xff0000})
+    // )
+    // smallBall.position.set(0, 10, 0)
+    // scene.add(smallBall)
 
     // 创建太阳环网格
-    const sunRingMaterial = new THREE.ShaderMaterial({
-        vertexShader: sunRingVertexShader,
-        fragmentShader: sunRingFragmentShader,
-        side: THREE.BackSide,
-        uniforms: {
-            uTime: {
-                value: 0
-            },
-            uMouse: {
-                value: new THREE.Vector2(0, 0)
-            },
-            uResolution: {
-                value: new THREE.Vector2(window.innerWidth, window.innerHeight)
-            }
-        }
-    });
-    const sunRingMesh = createSunRingMesh(sunRingMaterial)
-    sunRingMesh.position.copy(position)
-    scene.add(sunRingMesh)
+    // const sunRingMaterial = new THREE.ShaderMaterial({
+    //     vertexShader: sunRingVertexShader,
+    //     fragmentShader: sunRingFragmentShader,
+    //     side: THREE.BackSide,
+    //     uniforms: {
+    //         uTime: {
+    //             value: 0
+    //         },
+    //         uMouse: {
+    //             value: new THREE.Vector2(0, 0)
+    //         },
+    //         uResolution: {
+    //             value: new THREE.Vector2(window.innerWidth, window.innerHeight)
+    //         }
+    //     }
+    // });
+    // const sunRingMesh = createSunRingMesh(sunRingMaterial)
+    // sunRingMesh.position.copy(position)
+    // scene.add(sunRingMesh)
 
     // 创建云朵
     // createCloud(scene)
@@ -220,10 +222,10 @@ function main() {
 
     // 创建鸟
     let bridMinxerArr: string | any[] = []
-    createBird(scene, bridMinxerArr)
+    // createBird(scene, bridMinxerArr)
 
     // 创建home_dioroma
-    createHomeDioroma(scene)
+    // createHomeDioroma(scene)
 
     // 渲染
     function render() {
@@ -248,16 +250,16 @@ function main() {
 
         let elapsedTime = clock.getElapsedTime()
         let mousePos = new THREE.Vector2(0, 0)
-        cubeCamera.update(renderer, cubeScene)
-        if (sunNoiseMaterial && sunShapeMaterial) {
-            sunNoiseMaterial.uniforms.uTime.value = elapsedTime;
-            sunNoiseMaterial.uniforms.uMouse.value = mousePos;
-            sunShapeMaterial.uniforms.uTime.value = elapsedTime;
-            sunShapeMaterial.uniforms.uMouse.value = mousePos;
-            sunShapeMaterial.uniforms.uNoiseTexture.value = cubeRt.texture;
-            sunRingMaterial.uniforms.uTime.value = elapsedTime;
-            sunRingMaterial.uniforms.uMouse.value = mousePos;
-        }
+        // cubeCamera.update(renderer, cubeScene)
+        // if (sunNoiseMaterial && sunShapeMaterial) {
+        //     sunNoiseMaterial.uniforms.uTime.value = elapsedTime;
+        //     sunNoiseMaterial.uniforms.uMouse.value = mousePos;
+        //     sunShapeMaterial.uniforms.uTime.value = elapsedTime;
+        //     sunShapeMaterial.uniforms.uMouse.value = mousePos;
+        //     sunShapeMaterial.uniforms.uNoiseTexture.value = cubeRt.texture;
+        //     sunRingMaterial.uniforms.uTime.value = elapsedTime;
+        //     sunRingMaterial.uniforms.uMouse.value = mousePos;
+        // }
 
         requestAnimationFrame(render)
         renderer.render(scene, camera)
@@ -278,6 +280,7 @@ function createRenderer(canvas: any) {
     })
     renderer.shadowMap.enabled = true // 激活阴影，允许场景使用阴影贴图
     // renderer.outputEncoding = THREE.LinearEncoding // outputEncoding属性控制输出渲染编码
+    // renderer.outputEncoding = THREE.sRGBEncoding
     // renderer.setPixelRatio(window.devicePixelRatio) // 设置设备像素比 通常用于避免HiDPI设备上绘图模糊
     // renderer.setSize(window.innerWidth, window.innerHeight) // 将输出canvas的大小调整为(width, height)并考虑设备像素比，且将视口从(0, 0)开始调整到适合大小 将updateStyle设置为false以阻止对canvas的样式做任何改变
     renderer.setClearColor(0x000000, 0) // 设置背景颜色 默认黑色
@@ -292,9 +295,9 @@ function createRenderer(canvas: any) {
  * near 进
  * far 远
  * */ 
-function createCamera(fov = 40, aspect = window.innerWidth / window.innerHeight, near = 0.1, far = 1000) {
+function createCamera(fov = 40, aspect = window.innerWidth / window.innerHeight, near = 0.1, far = 10000) {
     let camera = new THREE.PerspectiveCamera(fov, aspect, near, far)
-    camera.position.copy(new THREE.Vector3(0, 10, 50)) // copy将属性复制到新相机中
+    camera.position.copy(new THREE.Vector3(0, 0, -5)) // copy将属性复制到新相机中
     camera.lookAt(new THREE.Vector3(0, 0, 0)) // 设置视线方向
     // camera.position.set(0, 10, 20) // 设置相机的位置
 
@@ -320,12 +323,12 @@ function createControls(camera: any, canvas: any) {
 
 // 创建场景
 function createScene() {
-    // 场景纹理图
-    let _texture = new URL('../../assets/texture/venice_sunset_1k.hdr', import.meta.url).href
+    // // 场景纹理图
+    // let _texture = new URL('../../assets/texture/venice_sunset_1k.hdr', import.meta.url).href
     let scene = new THREE.Scene()
     scene.background = new THREE.Color('#8ec3ed') // #8ec3ed #000000
-    scene.environment = new RGBELoader().load(_texture) // 控制场景的渲染方式
-    scene.environment.mapping = THREE.EquirectangularReflectionMapping // 环境贴图的映射方式
+    // scene.environment = new RGBELoader().load(_texture) // 控制场景的渲染方式
+    // scene.environment.mapping = THREE.EquirectangularReflectionMapping // 环境贴图的映射方式
     // scene.fog = new THREE.Fog(0x333333, 10, 15) // 雾化效果
 
     return scene
@@ -399,16 +402,45 @@ function createSky(scene: THREE.Scene) {
     // let bg_texture = loader.load(_texture)
     // bg_texture.colorSpace = THREE.SRGBColorSpace
     // scene.background = bg_texture
-    let sky = [
-        new URL('../../components/threeJS/source/sky/posx.jpg', import.meta.url).href,
-        new URL('../../components/threeJS/source/sky/negx.jpg', import.meta.url).href,
-        new URL('../../components/threeJS/source/sky/posy.jpg', import.meta.url).href,
-        new URL('../../components/threeJS/source/sky/negy.jpg', import.meta.url).href,
-        new URL('../../components/threeJS/source/sky/posz.jpg', import.meta.url).href,
-        new URL('../../components/threeJS/source/sky/negz.jpg', import.meta.url).href
-    ]
-    let cubeLoader = new THREE.CubeTextureLoader()
-    scene.background = cubeLoader.load(sky)
+
+    // let sky = [
+    //     new URL('../../components/threeJS/source/sky/posx.jpg', import.meta.url).href,
+    //     new URL('../../components/threeJS/source/sky/negx.jpg', import.meta.url).href,
+    //     new URL('../../components/threeJS/source/sky/posy.jpg', import.meta.url).href,
+    //     new URL('../../components/threeJS/source/sky/negy.jpg', import.meta.url).href,
+    //     new URL('../../components/threeJS/source/sky/posz.jpg', import.meta.url).href,
+    //     new URL('../../components/threeJS/source/sky/negz.jpg', import.meta.url).href
+    // ]
+    // let cubeLoader = new THREE.CubeTextureLoader()
+    // scene.background = cubeLoader.load(sky)
+
+    let _texture = new URL('../../assets/person/ship_in_clouds/scene.gltf', import.meta.url).href
+    let loader = new GLTFLoader()
+    loader.setDRACOLoader(new DRACOLoader())
+    loader.load(_texture, (gltf) => {
+        let _obj = gltf.scene
+        _obj.traverse((o) => {
+            // 启用投射和接收阴影的能力
+            o.castShadow = true
+            o.receiveShadow = true
+        })
+        console.log(gltf)
+        _obj.scale.set(1, 1, 1)
+        _obj.position.set(0, 0, 0)
+        scene.add(_obj)
+        // let _obj = gltf.scene
+        // _obj.traverse((o) => {
+        //     // 启用投射和接收阴影的能力
+        //     // o.castShadow = true
+        //     // o.receiveShadow = true
+        //     // o.material = material
+        // })
+        // // _obj.scale.set(0.02, 0.02, 0.02)
+        // // _obj.rotation.set(0, -Math.PI / 2, 0)
+        // _obj.position.set(10, 0, -10)
+        // scene.add(_obj)
+        // scene.add(gltf.scene)
+    })
 }
 
 // 创建草地
