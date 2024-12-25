@@ -4,6 +4,7 @@ import { GUI } from 'three/addons/libs/lil-gui.module.min.js';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
+import { TWEEN } from 'three/examples/jsm/libs/tween.module.min.js'
 import { onMounted} from 'vue';
 
 onMounted(() => {
@@ -42,7 +43,10 @@ phoneix_model_position = [
     },
 ],
 direction = null,
-direction_arr = ['top', 'bottom', 'left', 'right', 'before', 'after']
+direction_arr = ['top', 'bottom', 'left', 'right', 'before', 'after'],
+
+platform_model_group = [],
+role_model_group = []
 
 function main() {
     clock = new THREE.Clock();
@@ -57,10 +61,28 @@ function main() {
     // 场景
     scene = createScene()
 
+    // 环境光
+    const ambientLight = new THREE.AmbientLight(0xffffff, 1); // 白光，强度为1
+    scene.add(ambientLight);
+
+    // 4、加入灯光
+    // const lightness = new THREE.HemisphereLight(0xffffff, 0x444444);
+    // lightness.position.set(0, 20, 0);
+    // scene.add(lightness);
+    const shadowLight = new THREE.DirectionalLight(0xffffff);
+    shadowLight.position.set(0, 20, 10);
+    scene.add(shadowLight);
+
     // 盒子模型
-    createBox(scene)
+    // createBox(scene)
     // 凤凰
-    setTimeout(() => createPhoenix(scene), 1000)
+    // setTimeout(() => createPhoenix(scene), 1000)
+    // 创建舞台
+    createStage(scene)
+    // 创建站台
+    createPlatform(scene)
+    // 创建角色
+    createRole(scene)
 
     // 辅助工具
     const gui = new GUI()
@@ -76,14 +98,28 @@ function main() {
             camera.aspect = canvas.clientWidth / canvas.clientHeight
             camera.updateProjectionMatrix()
         }
-        time += 0.1
+        time += 0.0001
         if (phoneix_model) {
             // mathPhoenixPos()
+        }
+
+        if (platform_model_group.length > 0) {
+            for (let i = 0; i < platform_model_group.length; i++) {
+                platform_model_group[i].scene.rotation.y += 0.01
+            }
         }
 
         let dt = clock.getDelta()
         for (let i = 0; i < phoenixMixerArr.length; i++) {
             phoenixMixerArr[i].update(dt)
+        }
+
+        for (let i = 0; i < role_model_group.length; i++) {
+            if (role_model_group[i].action) {
+                for (let j = 0; j < role_model_group[i].mixerArr.length; j++) {
+                    role_model_group[i].mixerArr[j].update(dt)
+                }
+            }
         }
 
         requestAnimationFrame(render)
@@ -115,18 +151,18 @@ function createRenderer(canvas) {
  * */ 
 function createCamera(fov = 40, aspect = window.innerWidth / window.innerHeight, near = 0.1, far = 1000) {
     let camera = new THREE.PerspectiveCamera(fov, aspect, near, far)
-    // camera.position.copy(new THREE.Vector3(0, 0, 45)) // copy将属性复制到新相机中
-    // camera.lookAt(new THREE.Vector3(0, 0, 0)) // 设置视线方向
-    // camera.position.set(0, 10, 20) // 设置相机的位置
+    camera.position.copy(new THREE.Vector3(0, 0, 45)) // copy将属性复制到新相机中
+    camera.lookAt(new THREE.Vector3(0, 0, 0)) // 设置视线方向
+    camera.position.set(0, 10, 20) // 设置相机的位置
 
     return camera
 }
 // 创建控制器
 function createControls(camera, canvas) {
     let controls = new OrbitControls(camera, canvas)
-    controls.enableZoom = false // 是否可以缩放
-    controls.enablePan = false // 启用或禁用摄像机平移
-    controls.enableRotate = false // 是否启用旋转功能
+    controls.enableZoom = true // 是否可以缩放
+    controls.enablePan = true // 启用或禁用摄像机平移
+    controls.enableRotate = true // 是否启用旋转功能
     controls.update()
 
     return controls
@@ -134,7 +170,7 @@ function createControls(camera, canvas) {
 // 创建场景
 function createScene() {
     let scene = new THREE.Scene()
-    scene.background = new THREE.Color('#000000') // #8ec3ed
+    scene.background = new THREE.Color('#FFFFFF') // #8ec3ed #000000 #FFFFFF
 
     return scene
 }
@@ -192,10 +228,116 @@ async function createPhoenix(scene) {
     // 创建模型动作混合器
     phoenixMixer = new THREE.AnimationMixer(phoneix_model) 
     phoenixMixerArr.push(phoenixMixer)
+    console.log(phoenixMixerArr, '1')
     phoenixAction = phoenixMixer.clipAction(animations[0])
 
     phoenixAction.play()
 }
+// 创建舞台
+async function createStage(scene) {
+    const gltf = await loadGLTF('../../assets/person/stage/chicken_gun_pirateislands.glb')
+    scene.add(gltf.scene)
+}
+// 创建站台
+async function createPlatform(scene) {
+    platform_model_group.push(await loadGLTF('../../assets/platform/rock_platform.glb'))
+    platform_model_group.push(await loadGLTF('../../assets/platform/round_platform.glb'))
+    platform_model_group.push(await loadGLTF('../../assets/platform/platform.glb'))
+    let arr = [-1, 0, 1]
+    for (let i = 0; i < platform_model_group.length; i++) {
+        platform_model_group[i].scene.position.set(arr[i] * 5, 0, 0)
+        platform_model_group[i].scene.traverse((o) => {
+            // 启用投射和接收阴影的能力
+            o.castShadow = true
+            o.receiveShadow = true
+        })
+        scene.add(platform_model_group[i].scene)
+    }
+}
+// 创建角色
+async function createRole(scene) {
+    // role_model_group.push({
+    //     type: 'dragon',
+    //     scene: await loadGLTF('../../assets/person/dragon_model/scene.gltf'),
+    //     animations: null,
+    //     mixer: null,
+    //     mixerArr: [],
+    //     action: null
+    // })
+    // role_model_group.push({
+    //     type: 'metalgarurumon',
+    //     scene: await loadGLTF('../../assets/person/metalgarurumon_robotic_wolf/scene.gltf'),
+    //     animations: null,
+    //     mixer: null,
+    //     mixerArr: [],
+    //     action: null
+    // })
+    role_model_group.push({
+        type: 'drone',
+        scene: await loadGLTF('../../assets/person/drone/scene.gltf'),
+        animations: null,
+        mixer: null,
+        mixerArr: [],
+        action: null
+    })
+    role_model_group.push({
+        type: 'bird',
+        scene: await loadGLTF('../../assets/bird/scene.gltf'),
+        animations: null,
+        mixer: null,
+        mixerArr: [],
+        action: null
+    })
+    role_model_group.push({
+        type: 'robot',
+        scene: await loadGLTF('../../assets/person/animated_robot_sdc/scene.gltf'),
+        animations: null,
+        mixer: null,
+        mixerArr: [],
+        action: null
+    })
+    for (let i = 0; i < role_model_group.length; i++) {
+        // 启用投射和接收阴影的能力
+        role_model_group[i].scene.scene.traverse((o) => {
+            o.castShadow = true
+            o.receiveShadow = true
+            // if (o.isMesh) {
+            //     const materials = Array.isArray(o.material) ? o.material : [o.material];
+            //     materials.forEach(function (material) {
+            //         material.transparent = false; // 启用透明度
+            //         material.opacity = 1; // 设置透明度值（0.0 到 1.0 之间）
+            //     });
+            // }
+        })
+        scene.add(role_model_group[i].scene.scene)
+        // if (role_model_group[i].type ==='metalgarurumon') {
+        // }
+        // if (role_model_group[i].type === 'dragon') {
+        //     role_model_group[i].scene.scene.rotation.x = -Math.PI / 4
+        // }
+        if (role_model_group[i].type === 'bird') {
+            role_model_group[i].scene.scene.position.set(-5, 1, 0)
+            role_model_group[i].scene.scene.scale.set(0.005, 0.005, 0.005)
+            role_model_group[i].scene.scene.rotation.y = -Math.PI / 1.5
+        }
+        if (role_model_group[i].type === 'robot') {
+            role_model_group[i].scene.scene.rotation.y = -Math.PI / 2 
+        }
+        if (role_model_group[i].type === 'drone') {
+            role_model_group[i].scene.scene.position.set(5, 1, 0)
+        }
+        role_model_group[i].animations = role_model_group[i].scene.animations // 动画数据
+        role_model_group[i].mixer = new THREE.AnimationMixer(role_model_group[i].scene.scene) // 创建动画混合器
+        role_model_group[i].mixerArr.push(role_model_group[i].mixer)
+        if (role_model_group[i].type === 'drone') {
+            role_model_group[i].action = role_model_group[i].mixer.clipAction(role_model_group[i].animations[1])
+        } else {
+            role_model_group[i].action = role_model_group[i].mixer.clipAction(role_model_group[i].animations[0])
+        }
+        role_model_group[i].action.play()
+    }
+}
+
 function mathPhoenixPos() {
     if (!direction) {
         let num = getRandom(0, 5)
