@@ -1,3 +1,7 @@
+*.glb
+*.bin
+*.gltf
+
 # Logs
 logs
 *.log
@@ -22,4 +26,3 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
-/src/assets/person/stage/chicken_gun_pirateislands.glb

@@ -1,24 +1,31 @@
-作品地址：maxuecan.github.io
+# 作品地址：maxuecan.github.io
 
-内容包含：
-vue3+ts使用
-canvas使用
-css世界内容
-工作中内容记录
+## 内容包含：
 
-ui库：https://uiverse.io/
+```
+1. vue3+ts使用
+2. canvas使用
+3. css世界内容
+4. 工作中内容记录
+```
 
-eslint
+## ui库：https://uiverse.io/
+
+## eslint
+
+```
 安装eslint：npm i eslint -D
 初始化eslint：npx eslint --init
-1，模式：To check syntax and find problems(检查语法并查找问题)
-2，选中语言模块：JavaScript modules (import/export)
-3，旋转语言框架：Vue.js
-4，是否使用ts：yes
-5，代码在哪里运行：none
-6，配置文件格式：JavaScript
-7，是否现在安装：yes
-8，包管理器：npm
+
+1. 模式：To check syntax and find problems(检查语法并查找问题)
+2. 选中语言模块：JavaScript modules (import/export)
+3. 旋转语言框架：Vue.js
+4. 是否使用ts：yes
+5. 代码在哪里运行：none
+6. 配置文件格式：JavaScript
+7. 是否现在安装：yes
+8. 包管理器：npm
+
 前面安装完成会生成.eslintrc.js文件
 .eslintgnore：用于过滤不需要校验的文件
 
@@ -36,61 +43,113 @@ npm i eslint-plugin-prettier -D // eslint的prettier
   }),
 )
 简书：https://blog.csdn.net/qq_53225741/article/details/127113104
+```
 
+## vscode插件
 
-vscode插件
-# px to rem & rpx & vw 像素转化
-# open in browser 打开浏览器
-# prettier 代码格式化
-# vue-official 代码检查
+```
+px to rem & rpx & vw (像素转化)
+open in browser (打开浏览器)
+prettier (代码格式化)
+vue-official (代码检查)
+```
 
-js插件
-# autofit.js 自适应页面尺寸（App.vue）
+## js插件
 
-我的世界资源
-# https://free3d.com/zh/3d-model/lamborghini-aventador-sport-44634.html
+```
+autofit.js 自适应页面尺寸（App.vue）
+```
 
-借鉴作品
-# 人物运动:https://juejin.cn/post/7354948943912370214?searchId=2024040808341064FB8BAF7BE5D94974CD
-# 人物运动:https://juejin.cn/post/7351642274273918986?searchId=2024040808341064FB8BAF7BE5D94974CD
-# 左本项目 http://zuoben.top/pages/resource/
-# 小车运动:https://juejin.cn/post/7350181789531373619?searchId=20240328114158E0986DEB274115E98DC4
+## Three.js资源
 
-场景资源
-# https://polyhaven.com/zh/hdris
+```
+https://free3d.com/zh/3d-model/lamborghini-aventador-sport-44634.html
 
-解决方案
+借鉴作品:
+人物运动:https://juejin.cn/post/7354948943912370214?searchId=2024040808341064FB8BAF7BE5D94974CD
+
+人物运动:https://juejin.cn/post/7351642274273918986?searchId=2024040808341064FB8BAF7BE5D94974CD
+
+左本项目 http://zuoben.top/pages/resource/ 
+
+小车运动:https://juejin.cn/post/7350181789531373619?searchId=20240328114158E0986DEB274115E98DC4
+```
+
+## Three.js场景资源
+
+```
+https://polyhaven.com/zh/hdris
+
+https://sketchfab.com/
+```
+
+## 常见问题处理，以及解决方案
+
+```
 http下浏览器调用设备权限
-# https://blog.csdn.net/anzhenxi3529/article/details/121624415 
+https://blog.csdn.net/anzhenxi3529/article/details/121624415 
+```
 
-blender教程
-# https://i.youku.com/u/UMTgzMTA0NDc2MA
-# https://docs.blender.org/manual/zh-hans/latest/interface/window_system/workspaces.html
+## blender教程
 
+```
+https://i.youku.com/u/UMTgzMTA0NDc2MA
 
-主题切换
+https://docs.blender.org/manual/zh-hans/latest/interface/window_system/workspaces.html
+```
+
+## 主题切换案例
+
+```
 # https://juejin.cn/post/7042605241023332389?from=search-suggest
+
 # https://juejin.cn/post/7049384448256639006?from=search-suggest
+
 # https://blog.csdn.net/Echocyd/article/details/106350793
+
 # https://juejin.cn/post/7341797865108766746?from=search-suggest#heading-3
+```
 
-代码规范
-# https://juejin.cn/post/6893891476913291278?searchId=20240522153147D05921574B41967E0E69
+## 代码规范
 
-ios app 发布
-# https://zhuanlan.zhihu.com/p/677066528
+```
+https://juejin.cn/post/6893891476913291278?searchId=20240522153147D05921574B41967E0E69
+```
 
-手写nextTick
+## ios app 发布
+
+```
+https://zhuanlan.zhihu.com/p/677066528
+```
+
+## 手写nextTick
+
+```
 # https://juejin.cn/post/7399530640860643380
+```
 
-免费模型
-# https://sketchfab.com/
+## 稀土文章
 
-稀土文章
-# https://juejin.cn/post/7361720687956459531  // 模型资源
+```
+https://juejin.cn/post/7361720687956459531 
 
 模型加载，骨骼运动
 # https://juejin.cn/post/7272571989821784123 
 
 gltf模型检查
-# https://gltf-viewer.donmccurdy.com/
+https://gltf-viewer.donmccurdy.com/
+```
+
+## git大文件上传
+
+```
+git lfs track "*."
+git add .
+git commit -m ""
+git push
+```
+## git取消提交
+
+```
+git reset --soft HEAD^
+```
