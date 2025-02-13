@@ -58,6 +58,33 @@ vue-official (代码检查)
 
 ```
 autofit.js 自适应页面尺寸（App.vue）
+
+codeMirror 代码编辑器
+https://github.com/codemirror/codemirror5
+https://codemirror.net/5/demo/search.html
+
+xterm 终端
+https://github.com/xtermjs/xterm.js
+https://www.javascriptcn.com/post/33698
+
+fabricjs canvas库
+https://fabricjs.com/
+
+ajv JSON校验
+https://ajv.js.org/
+
+Css sprites
+https://www.toptal.com/developers/css/sprite-generator
+
+jszip 压缩
+https://www.softaculous.com/apps/js/libraries/JSZip
+http://docs.asprain.cn/jszip/jszip.html
+https://stuk.github.io/jszip/
+
+jsTree 
+https://www.jstree.com/api/#/
+
+https://help.fanruan.com/finereport/doc-view-1178.html
 ```
 
 ## Three.js资源
@@ -73,6 +100,8 @@ https://free3d.com/zh/3d-model/lamborghini-aventador-sport-44634.html
 左本项目 http://zuoben.top/pages/resource/ 
 
 小车运动:https://juejin.cn/post/7350181789531373619?searchId=20240328114158E0986DEB274115E98DC4
+
+https://gltf-viewer.donmccurdy.com/
 ```
 
 ## Three.js场景资源
@@ -153,3 +182,69 @@ git push
 ```
 git reset --soft HEAD^
 ```
+
+## 若一
+
+```
+https://gitee.com/tony2y/RuoYi-flowable#https://gitee.com/link?target=http%3A%2F%2Fopen.tony2y.top
+```
+
+## 阮一峰
+
+```
+https://es6.ruanyifeng.com/#docs/promise
+```
+
+## Electron
+
+```
+http://blog.tomyres.com/archives/abae80ef.html
+```
+
+## 单点
+
+```
+https://casdoor.org/zh/docs/application/config
+https://casdoor.org/zh/docs/how-to-connect/sdk/
+```
+
+## SVG在线生成
+
+```
+https://www.bejson.com/ui/svg_editor/#google_vignette
+```
+
+## 服务端监控
+
+```
+https://juejin.cn/post/7123518368631652382
+```
+
+## Scratch文章
+
+```
+https://github.com/shownb/shownb.github.com/issues/36
+
+https://read.douban.com/reader/ebook/162934827/?dcs=ebook
+
+https://github.com/LLK/scratch-gui
+
+https://summerscar.me/2021/07/01/%E6%8F%92%E4%BB%B6%E7%BC%96%E5%86%99%E5%AE%8C%E5%85%A8%E6%8C%87%E5%8D%97/
+
+https://github.com/scratchfoundation/scratch-vm/blob/develop/docs/extensions.md
+```
+
+## 图像压缩
+
+```
+https://tinify.cn/
+```
+
+### GLB文件压缩
+
+```
+glTF-Pipeline: 一个Node.js命令行工具，可以用来优化和压缩GLB文件。
+gltfpack: 一个高效的glTF压缩工具，可以显著减小文件大小。
+glTF-Optimizer: 一个Web工具，可以在浏览器中优化glTF/GLB文件。
+```
+

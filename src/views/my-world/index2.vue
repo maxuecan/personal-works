@@ -414,33 +414,33 @@ function createSky(scene: THREE.Scene) {
     // let cubeLoader = new THREE.CubeTextureLoader()
     // scene.background = cubeLoader.load(sky)
 
-    let _texture = new URL('../../assets/person/ship_in_clouds/scene.gltf', import.meta.url).href
-    let loader = new GLTFLoader()
-    loader.setDRACOLoader(new DRACOLoader())
-    loader.load(_texture, (gltf) => {
-        let _obj = gltf.scene
-        _obj.traverse((o) => {
-            // 启用投射和接收阴影的能力
-            o.castShadow = true
-            o.receiveShadow = true
-        })
-        console.log(gltf)
-        _obj.scale.set(1, 1, 1)
-        _obj.position.set(0, 0, 0)
-        scene.add(_obj)
-        // let _obj = gltf.scene
-        // _obj.traverse((o) => {
-        //     // 启用投射和接收阴影的能力
-        //     // o.castShadow = true
-        //     // o.receiveShadow = true
-        //     // o.material = material
-        // })
-        // // _obj.scale.set(0.02, 0.02, 0.02)
-        // // _obj.rotation.set(0, -Math.PI / 2, 0)
-        // _obj.position.set(10, 0, -10)
-        // scene.add(_obj)
-        // scene.add(gltf.scene)
-    })
+    // let _texture = new URL('../../assets/person/ship_in_clouds/scene.gltf', import.meta.url).href
+    // let loader = new GLTFLoader()
+    // loader.setDRACOLoader(new DRACOLoader())
+    // loader.load(_texture, (gltf) => {
+    //     let _obj = gltf.scene
+    //     _obj.traverse((o) => {
+    //         // 启用投射和接收阴影的能力
+    //         o.castShadow = true
+    //         o.receiveShadow = true
+    //     })
+    //     console.log(gltf)
+    //     _obj.scale.set(1, 1, 1)
+    //     _obj.position.set(0, 0, 0)
+    //     scene.add(_obj)
+    //     // let _obj = gltf.scene
+    //     // _obj.traverse((o) => {
+    //     //     // 启用投射和接收阴影的能力
+    //     //     // o.castShadow = true
+    //     //     // o.receiveShadow = true
+    //     //     // o.material = material
+    //     // })
+    //     // // _obj.scale.set(0.02, 0.02, 0.02)
+    //     // // _obj.rotation.set(0, -Math.PI / 2, 0)
+    //     // _obj.position.set(10, 0, -10)
+    //     // scene.add(_obj)
+    //     // scene.add(gltf.scene)
+    // })
 }
 
 // 创建草地

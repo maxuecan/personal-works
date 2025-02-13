@@ -130,6 +130,10 @@ const testRoutes: Array<RouteRecordRaw> = [
     component: () => import('@/views/my-world/index2.vue')
   },
   {
+    path: '/my-ai',
+    component: () => import('@/views/ai/index.vue')
+  },
+  {
     path: '/file-demo',
     component: () => import('@/components/file/index.vue')
   },

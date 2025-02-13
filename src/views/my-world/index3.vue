@@ -80,7 +80,7 @@ function main() {
     // 创建舞台
     createStage(scene)
     // 创建站台
-    createPlatform(scene)
+    // createPlatform(scene)
     // 创建角色
     createRole(scene)
 
@@ -153,7 +153,7 @@ function createCamera(fov = 40, aspect = window.innerWidth / window.innerHeight,
     let camera = new THREE.PerspectiveCamera(fov, aspect, near, far)
     camera.position.copy(new THREE.Vector3(0, 0, 45)) // copy将属性复制到新相机中
     camera.lookAt(new THREE.Vector3(0, 0, 0)) // 设置视线方向
-    camera.position.set(0, 10, 20) // 设置相机的位置
+    camera.position.set(0, 0, 20) // 设置相机的位置
 
     return camera
 }
@@ -170,8 +170,8 @@ function createControls(camera, canvas) {
 // 创建场景
 function createScene() {
     let scene = new THREE.Scene()
-    scene.background = new THREE.Color('#FFFFFF') // #8ec3ed #000000 #FFFFFF
-
+    scene.background = new THREE.Color('rgba(135, 206, 250, 1)') // #8ec3ed #000000 #FFFFFF rgba(255, 250, 250, 1) rgba(255, 165, 0, 1)
+    // rgba(135, 206, 250, 1) rgba(250, 250, 255, 0.9) rgba(240, 255, 255, 1)
     return scene
 }
 // 创建盒子
@@ -235,14 +235,24 @@ async function createPhoenix(scene) {
 }
 // 创建舞台
 async function createStage(scene) {
-    const gltf = await loadGLTF('../../assets/person/stage/chicken_gun_pirateislands.glb')
+    // const gltf = await loadGLTF('../../assets/person/stage/chicken_gun_pirateislands.glb')
+    const gltf = await loadGLTF(
+        new URL('../../assets/person/stage/x_house.glb', import.meta.url).href
+    )
+    console.log(gltf.scene)
+    gltf.scene.position.set(0, -5, -5)
+    gltf.scene.scale.set(2, 2, 2)
+    // gltf.scene.rotation.y = -Math.PI * 1.5
     scene.add(gltf.scene)
 }
 // 创建站台
 async function createPlatform(scene) {
-    platform_model_group.push(await loadGLTF('../../assets/platform/rock_platform.glb'))
-    platform_model_group.push(await loadGLTF('../../assets/platform/round_platform.glb'))
-    platform_model_group.push(await loadGLTF('../../assets/platform/platform.glb'))
+    // platform_model_group.push(await loadGLTF('../../assets/platform/rock_platform.glb'))
+    // platform_model_group.push(await loadGLTF('../../assets/platform/round_platform.glb'))
+    // platform_model_group.push(await loadGLTF('../../assets/platform/platform.glb'))
+    platform_model_group.push(await loadGLTF(
+        new URL('../../assets/person/magic/magic_ring_-_red/scene.gltf', import.meta.url).href
+    ))
     let arr = [-1, 0, 1]
     for (let i = 0; i < platform_model_group.length; i++) {
         platform_model_group[i].scene.position.set(arr[i] * 5, 0, 0)
@@ -274,7 +284,9 @@ async function createRole(scene) {
     // })
     role_model_group.push({
         type: 'drone',
-        scene: await loadGLTF('../../assets/person/drone/scene.gltf'),
+        scene: await loadGLTF(
+            new URL('../../assets/person/drone/drone.glb', import.meta.url).href
+        ),
         animations: null,
         mixer: null,
         mixerArr: [],
@@ -282,20 +294,24 @@ async function createRole(scene) {
     })
     role_model_group.push({
         type: 'bird',
-        scene: await loadGLTF('../../assets/bird/scene.gltf'),
+        scene: await loadGLTF(
+            new URL('../../assets/bird/bird_flying_animation.glb', import.meta.url).href
+        ), // await loadGLTF('../../assets/bird/scene.gltf'),
         animations: null,
         mixer: null,
         mixerArr: [],
         action: null
     })
-    role_model_group.push({
-        type: 'robot',
-        scene: await loadGLTF('../../assets/person/animated_robot_sdc/scene.gltf'),
-        animations: null,
-        mixer: null,
-        mixerArr: [],
-        action: null
-    })
+    // role_model_group.push({
+    //     type: 'robot',
+    //     scene: await loadGLTF(
+    //         new URL('../../assets/person/animated_robot_sdc/scene.gltf', import.meta.url).href
+    //     ), // await loadGLTF('../../assets/person/animated_robot_sdc/scene.gltf')
+    //     animations: null,
+    //     mixer: null,
+    //     mixerArr: [],
+    //     action: null
+    // })
     for (let i = 0; i < role_model_group.length; i++) {
         // 启用投射和接收阴影的能力
         role_model_group[i].scene.scene.traverse((o) => {
@@ -317,8 +333,8 @@ async function createRole(scene) {
         // }
         if (role_model_group[i].type === 'bird') {
             role_model_group[i].scene.scene.position.set(-5, 1, 0)
-            role_model_group[i].scene.scene.scale.set(0.005, 0.005, 0.005)
-            role_model_group[i].scene.scene.rotation.y = -Math.PI / 1.5
+            role_model_group[i].scene.scene.scale.set(1, 1, 1)
+            // role_model_group[i].scene.scene.rotation.y = -Math.PI / 1.5
         }
         if (role_model_group[i].type === 'robot') {
             role_model_group[i].scene.scene.rotation.y = -Math.PI / 2 
@@ -382,8 +398,8 @@ function getRandom(max, min) {
 }
 
 // 加载gltf模型
-function loadGLTF(url) {
-    const _texture = new URL(url, import.meta.url).href
+function loadGLTF(_texture) {
+    // const _texture = new URL(url, import.meta.url).href
     let loader = new GLTFLoader()
     loader.setDRACOLoader(new DRACOLoader())
     return new Promise((resolve, reject) => {
