@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
+    "build:cloud": "vite build --mode cloud",
     "preview": "vite preview"
   },
   "dependencies": {

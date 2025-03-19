@@ -248,3 +248,14 @@ gltfpack: 一个高效的glTF压缩工具，可以显著减小文件大小。
 glTF-Optimizer: 一个Web工具，可以在浏览器中优化glTF/GLB文件。
 ```
 
+### package.json与.env关系
+
+```
+"script": {
+	"div": "vite", // .env.development
+	"build": "vite build", // .env.production
+	"build:cloud": "vite build --mode cloud" // .env.cloud
+}
+.env 在vite项目，以VITE_做为标识
+```
+
