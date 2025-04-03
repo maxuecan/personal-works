@@ -141,6 +141,14 @@ const testRoutes: Array<RouteRecordRaw> = [
     path: '/scss',
     component: () => import('@/components/scss/index.vue')
   },
+  {
+    path: '/turtle',
+    component: () => import('@/views/turtle/index.vue')
+  },
+  {
+    path: '/skulpt',
+    component: () => import('@/views/skulpt/index.vue')
+  },
   homeRouter,
 ]
 /* 测试路由 */
