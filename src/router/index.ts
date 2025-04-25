@@ -149,6 +149,18 @@ const testRoutes: Array<RouteRecordRaw> = [
     path: '/skulpt',
     component: () => import('@/views/skulpt/index.vue')
   },
+  {
+    path: '/handsontable',
+    component: () => import('@/views/handsontable/index.vue')
+  },
+  {
+    path: '/excel',
+    component: () => import('@/views/excel/index.vue')
+  },
+  {
+    path: '/echart',
+    component: () => import('@/views/echart/index.vue')
+  },
   homeRouter,
 ]
 /* 测试路由 */
