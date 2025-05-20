@@ -1,6 +1,7 @@
 import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router'
 
 import homeRouter from './modules/home'
+import plugsRouter from './modules/plugs'
 
 // interface RouteRecordRawa extends RouteRecordRaw {
 //   hidden?: boolean
@@ -110,17 +111,6 @@ const testRoutes: Array<RouteRecordRaw> = [
     path: '/i_frame',
     component: () => import('@/views/practice/i_frame/index.vue')
   },
-  /*  
-   * 插件/框架
-   */
-  {
-    path: '/element',
-    component: () => import('@/views/plugs/element/index.vue')
-  },
-  {
-    path: '/imageLazyLoading',
-    component: () => import('@/views/plugs/imageLazyLoading/index.vue')
-  },
   {
     path: '/test',
     component: () => import('@/views/test/index.vue')
@@ -131,7 +121,7 @@ const testRoutes: Array<RouteRecordRaw> = [
   },
   {
     path: '/my-ai',
-    component: () => import('@/views/ai/index.vue')
+    component: () => import('@/views/ai/index1.vue')
   },
   {
     path: '/file-demo',
@@ -162,6 +152,7 @@ const testRoutes: Array<RouteRecordRaw> = [
     component: () => import('@/views/echart/index.vue')
   },
   homeRouter,
+  plugsRouter
 ]
 /* 测试路由 */
 const router = createRouter({

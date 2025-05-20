@@ -96,6 +96,7 @@ declare module '@vue/runtime-core' {
     ElButton: typeof import('element-plus/es')['ElButton']
     ElEmpty: typeof import('element-plus/es')['ElEmpty']
     ElInput: typeof import('element-plus/es')['ElInput']
+    ElPopover: typeof import('element-plus/es')['ElPopover']
     ElRadio: typeof import('element-plus/es')['ElRadio']
     ElRadioGroup: typeof import('element-plus/es')['ElRadioGroup']
     ElTable: typeof import('element-plus/es')['ElTable']

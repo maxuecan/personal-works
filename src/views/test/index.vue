@@ -1,467 +1,392 @@
 <template>
-  <div class="comment">
-    <!-- <div class="comment-header">
-      <el-tooltip class="item" effect="dark" content="点我更换头像" placement="top-start">
-        <div @click="handleClick">
-          <input type="file" style="display: none" @change="dealWithdAvatar" ref="avatar" />
-          <el-avatar
-            :src="
-              avatarUrl
-                ? avatarUrl
-                : 'https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png'
-            "
-            :size="40"
-          ></el-avatar>
-        </div>
-      </el-tooltip>
-      <el-input
-        :placeholder="placeholderText"
-        v-model="context"
-        class="input"
-        type="textarea"
-        resize="none"
-        size="mini"
-        :maxlength="contentLength"
-        @focus="isShowSecReply(undefined)"
-      ></el-input>
-      <el-button
-        type="info"
-        style="height: 40px"
-        @click="addComment(articleId, undefined)"
-      >{{ buttonText }}</el-button>
-    </div> -->
-    <div class="comment-body" v-for="(item, index) in comments" :key="item._id + '' + index">
-      <!-- 一级评论 -->
-      <div class="first-comment">
-        <el-avatar :size="40" :src="item.avatarUrl"></el-avatar>
-        <div class="content">
-          <!-- 一级评论用户昵称 -->
-          <h3>{{ item.username }}</h3>
-          <!-- 一级评论发布时间 -->
-          <span>{{ item.date }}</span>
-          <!-- 一级评论评论内容 -->
-          <p>{{ item.content }}</p>
-          <!-- 一级评论评论点赞 -->
-          <div class="comment-right">
-            <i
-              class="el-icon-trophy"
-              @click="giveALike(item, item._id)"
-              :class="item.favour.includes(userId) ? 'active' : ''"
-            ></i>
-            {{ item.favour.length || 0 }}
-            <i
-              class="el-icon-chat-dot-round"
-              @click="isShowSecReply(item._id)"
-            >回复</i>
-            <i
-              class="el-icon-delete"
-              @click="deleteComment(item._id, undefined)"
-              v-if="userId === item.userId"
-            >删除</i>
-          </div>
-          <!-- 回复一级评论 -->
-          <div class="reply-comment" v-show="isShowSec === item._id">
-            <el-input
-              :placeholder="placeholderText"
-              class="input"
-              v-model.trim="replyContext"
-              :maxlength="contentLength"
-            ></el-input>
-            <el-button
-              type="info"
-              size="mini"
-              class="reply-button"
-              @click="addComment(item._id, item.username)"
-            >回复</el-button>
-          </div>
-          <!-- 次级评论 -->
-          <div
-            class="second-comment"
-            v-for="(reply, index) in item.replyInfo"
-            :key="reply._id + '' + index"
-          >
-            <!-- 次级评论头像,该用户没有头像则显示默认头像 -->
-            <el-avatar :size="40" :src="reply.avatarUrl"></el-avatar>
-            <div class="content">
-              <!-- 次级评论用户昵称 -->
-              <h3>{{ reply.username }}</h3>
-              <!-- 次级评论评论时间 -->
-              <span>{{ reply.date }}</span>
-              <span class="to_reply">{{ reply.username }}</span>
-              回复
-              <span class="to_reply">{{ reply.replyName }}</span>:
-              <p>{{ reply.content }}</p>
-              <!-- 次级评论评论点赞 -->
-              <div class="comment-right">
-                <i
-                  class="el-icon-trophy"
-                  @click="giveALike(reply, item._id)"
-                  :class="reply.favour.includes(userId) ? 'active' : ''"
-                ></i>
-                {{ reply.favour ? reply.favour.length : 0 }}
-                <i
-                  class="el-icon-chat-dot-round"
-                  @click="isShowSecReply(reply._id)"
-                >回复</i>
-                <i
-                  class="el-icon-delete"
-                  @click="deleteComment(item._id, reply._id)"
-                  v-if="userId === reply.userId"
-                >删除</i>
-              </div>
-              <div class="reply-comment" v-show="isShowSec === reply._id">
-                <el-input
-                  :placeholder="placeholderText"
-                  class="input"
-                  v-model.trim="replyContext"
-                  :maxlength="contentLength"
-                ></el-input>
-                <el-button
-                  type="info"
-                  size="mini"
-                  class="reply-button"
-                  @click="addComment(item._id, reply.username)"
-                >回复</el-button>
-              </div>
+     <div class="colorPicker">
+        <el-popover placement="bottom" popperClass="colorPopper" :ref="`popoverRef_${pickId}`" width="240" trigger="click"
+            @show="popoverShow">
+            <div class="color_content">
+                <span class="color_title">最近使用颜色</span>
+                <ul class="recentCo_ul">
+                    <li class="recentCo_li recentCo_first" title="清除颜色" @click="handleClearColor"></li>
+                    <li class="recentCo_li cursor" v-for="(item, index) in recentColorList" :key="index"
+                        :style="`background:${item}`" :data-color="`${item}`" :title="`${item}`" @click="handleCheckColor">
+
+                    </li>
+                </ul>
+                <ul class="color_tab">
+                    <li class="colorTab_li" :class="activeTab == index ? '-activeTab' : ''"
+                        @click="handleActiveTabChange(index)" v-for="(item, index) in colorTabList" :key="index">{{ item
+                        }}</li>
+                </ul>
+                <table v-show="activeTab == 0" class="edui-box ue_colortable edui-default colorTable"
+                    style="border-collapse: collapse;" cellspacing="0" cellpadding="0">
+                    <tbody class="edui-default">
+                        <tr class="edui-default"
+                            :class="{ 'edui-colorpicker-tablefirstrow': index == 0 || index == colorList.length - 1 }"
+                            v-for="(item, index) in colorList" :key="index">
+                            <td class="edui-default pr-4" v-for="(itemIn, indexIn) in item" :key="indexIn">
+                                <a hidefocus="" :title="itemIn" onclick="return false;" href="javascript:" unselectable="on"
+                                    class="edui-box edui-colorpicker-colorcell edui-default"
+                                    :class="index == 0 || index == colorList.length - 1 || index == colorList.length - 2 ? 'isFirst' : 'noFirst'"
+                                    :data-color="`${itemIn}`" :style="`background:${itemIn};`" @click="handleCheckColor">
+                                </a>
+                            </td>
+                        </tr>
+                        <tr></tr>
+                    </tbody>
+                </table>
+                <div class="picker_svg" v-show="activeTab == 1">
+                    <div class="colorBack" @mousedown="colorBarDown" @mousemove="colorBarMove" @mouseup="colorBarUp"
+                        @mouseleave="colorBarUp"
+                        :style="`background:rgb(${curSliderColor[0]},${curSliderColor[1]},${curSliderColor[2]})`">
+                        <svg id="back_svg">
+                            <rect x="0" y="0" width="100%" height="100%" :fill="`url(#gradient-white${pickId})`"></rect>
+                            <rect x="0" y="0" width="100%" height="100%" :fill="`url(#gradient-black${pickId})`"></rect>
+                            <defs>
+                                <linearGradient :id="`gradient-black${pickId}`" x1="0%" y1="100%" x2="0%" y2="0%">
+                                    <stop offset="0%" stop-color="#000000" stop-opacity="1"></stop>
+                                    <stop offset="100%"
+                                        :stop-color="`rgb(${curSliderColor[0]},${curSliderColor[1]},${curSliderColor[2]})`"
+                                        stop-opacity="0"></stop>
+                                </linearGradient>
+                                <linearGradient :id="`gradient-white${pickId}`" x1="0%" y1="100%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#FFFFFF" stop-opacity="1"></stop>
+                                    <stop offset="100%"
+                                        :stop-color="`rgb(${curSliderColor[0]},${curSliderColor[1]},${curSliderColor[2]})`"
+                                        stop-opacity="0"></stop>
+                                </linearGradient>
+                            </defs>
+                        </svg>
+                        <div class="colorBar colorBarTarget" :class="`colorBarTarget_${pickId}`"
+                            :style="`top:${colorBarTop}px;left:${colorBarLeft}px`">
+                            <div class="colorBarTarget" :class="`colorBarTarget_${pickId}`"></div>
+                        </div>
+                    </div>
+                    <div class="colorSilder" ref="slider" @mousedown="silderBarDown" @mousemove="silderBarMove"
+                        @mouseup="sliderBarUp" @mouseleave="sliderBarUp">
+                        <svg id="hsv_svg">
+                            <rect x="0" y="0" width="100%" height="100%" :fill="`url(#gradient-hsv${pickId})`"></rect>
+                            <linearGradient :id="`gradient-hsv${pickId}`" x1="0%" y1="100%" x2="0%" y2="0%">
+                                <stop offset="0%" stop-color="#FF0000" stop-opacity="1"></stop>
+                                <stop offset="13%" stop-color="#FF00FF" stop-opacity="1"></stop>
+                                <stop offset="25%" stop-color="#8000FF" stop-opacity="1"></stop>
+                                <stop offset="38%" stop-color="#0040FF" stop-opacity="1"></stop>
+                                <stop offset="50%" stop-color="#00FFFF" stop-opacity="1"></stop>
+                                <stop offset="63%" stop-color="#00FF40" stop-opacity="1"></stop>
+                                <stop offset="75%" stop-color="#0BED00" stop-opacity="1"></stop>
+                                <stop offset="88%" stop-color="#FFFF00" stop-opacity="1"></stop>
+                                <stop offset="100%" stop-color="#FF0000" stop-opacity="1"></stop>
+                            </linearGradient>
+                        </svg>
+                        <div class="silderBar" :class="`silderBar_${pickId}`" :style="`top:${siderBarTop}px`"></div>
+                    </div>
+                </div>
+                <div class="colorPick_bottom">
+                    <div class="color_div" :style="`background:${colorInput}`"></div>
+                    <div class="color_input"><el-input class v-model="colorInput" @input="handleInputChange"></el-input></div>
+                    <button class="color_btn" @click="handleConfirmColor">确定</button>
+                </div>
+
             </div>
-          </div>
-        </div>
-      </div>
+            <div slot="reference">
+                <i class="iconfont iconStyle" :class="iconClass" :title="iconTitle"></i>
+            </div>
+        </el-popover>
     </div>
-    <!-- 暂无评论的空状态 -->
-    <el-empty :description="emptyText" v-show="comments.length === 0"></el-empty>
-  
-    <input type="file" id="videoFileInput" accept=".webm">
-  </div>
 </template>
+
 <script>
-import Compressor from 'compressorjs';
-
+var isFirst = true;
 export default {
-  props: {
-      articleId: {
-        //评论所属文章 id
-        type: String
-      },
-      emptyText: {
-        // 评论为空的时候显示的文字
-        type: String,
-        default: "期待你的评论！"
-      },
-      buttonText: {
-        // 按钮文字
-        type: String,
-        default: "评论"
-      },
-      contentLength: {
-        // 评论长度
-        type: Number,
-        default: 150
-      },
-      placeholderText: {
-        // 默认显示文字
-        type: String,
-        default: "请输入最多150字的评论..."
-      }
-  },
-  data() {
-      return {
-        comments: [
-          {
-            _id: "first0", // 评论id
-            date: "2022.09.01", //创建日期
-            username: "孤城浪人", //评论人
-            userId: "1",
-            avatarUrl:
-              "https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png", //头像地址
-            favour: ["1", "2", "3"], //点赞的用户id
-            content: "666", //评论内容
-            replyInfo: [
-              //回复的内容
-              {
-                _id: "sec0", // 当前此条回复的id
-                date: "2022.09.01", //创建日期
-                replyName: "孤城浪人", //回复的对象
-                username: "孤城浪人", //评论人
-                userId: "1",
-                favour: ["2", "3", "4"],
-                avatarUrl:
-                  "https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png",
-                content: "博主厉害了" //回复的内容
-              }
-            ]
-          },
-        //   {
-        //     _id: "first0", // 评论id
-        //     date: "2022.09.01", //创建日期
-        //     username: "孤城浪人", //评论人
-        //     userId: "1",
-        //     avatarUrl:
-        //       "https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png", //头像地址
-        //     favour: ["1", "2", "3"], //点赞的用户id
-        //     content: "666", //评论内容
-        //     replyInfo: [
-        //       //回复的内容
-        //       {
-        //         _id: "sec0", // 当前此条回复的id
-        //         date: "2022.09.01", //创建日期
-        //         replyName: "孤城浪人", //回复的对象
-        //         username: "孤城浪人", //评论人
-        //         userId: "1",
-        //         favour: ["2", "3", "4"],
-        //         avatarUrl:
-        //           "https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png",
-        //         content: "博主厉害了" //回复的内容
-        //       }
-        //     ]
-        //   }
-        ], // 获取得到的评论
-        context: "", // 评论内容
-        replyContext: "", //一级评论回复
-        isShowSec: "", //是否显示次级回复框
-        isClickId: "", //记录点击回复的评论id
-        userId: "1", // 浏览器指纹
-        username: "孤城浪人", //你的用户名
-        firstIdx: 1,
-        secIdx: 1,
-        avatarUrl:
-          "https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"
-      };
-  },
-  created() {
-    // 获取评论数据
-    // this.getCommentList();
-  },
-  mounted() {
-    this.$nextTick(() => {
-      let img = new URL('../../assets/test/test.png', import.meta.url).href
-      console.log(img)
-      console.log(Compressor(img, {maxWidth: 640, maxHeight: 640}))
-    })
-  },
-  methods: {
-    // 唤起文件选择
-    handleClick() {
-      this.$refs.avatar.click();
+    name: 'colorPicker',
+    data() {
+        return {
+            pickId: '',
+            colorTabList: ['基本颜色', '更多颜色'],
+            activeTab: 0,
+            recentColorList: ['#548dd4', '#366092', '#000'],
+            colorList: [
+                ['#ffffff', '#000000', '#eeece1', '#1f497d', '#4f81bd', '#c0504d', '#9bbb59', '#8064a2', '#4bacc6', '#f79646'],
+                ['#f2f2f2', '#7f7f7f', '#ddd9c3', '#c6d9f0', '#dbe5f1', '#f2dcdb', '#ebf1dd', '#e5e0ec', '#dbeef3', '#fdeada'],
+                ['#d8d8d8', '#595959', '#c4bd97', '#8db3e2', '#b8cce4', '#e5b9b7', '#d7e3bc', '#ccc1d9', '#b7dde8', '#fbd5b5'],
+                ['#bfbfbf', '#3f3f3f', '#938953', '#548dd4', '#95b3d7', '#d99694', '#c3d69b', '#b2a2c7', '#92cddc', '#fac08f'],
+                ['#a5a5a5', '#262626', '#494429', '#17365d', '#366092', '#953734', '#76923c', '#5f497a', '#31859b', '#e36c09'],
+                ['#7f7f7f', '#0c0c0c', '#1d1b10', '#0f243e', '#244061', '#632423', '#4f6128', '#3f3151', '#205867', '#974806'],
+                ['#c00000', '#ff0000', '#ffc000', '#ffff00', '#92d050', '#00b050', '#00b0f0', '#0070c0', '#002060', '#7030a0'],
+            ],
+            colorInput: '#555',
+            colorInputRgb: [85, 85, 85],
+            colorInputHsv: [],
+            colorBgState: false,
+            colorBarTop: 0,
+            colorBarLeft: 0,
+            sliderState: false,
+            startY: 0,
+            offsetY: 0,
+            Hval: 0,
+            Sval: 100,
+            Vval: 100,
+            siderBarTop: 0,
+            curColor: [255, 0, 0],
+            curSliderColor: [255, 0, 0],
+        }
     },
-    dealWithdAvatar(e) {
-      const maxSize = 2 * 1024 * 1024;
-      const file = Array.prototype.slice.call(e.target.files)[0];
-      console.log(file);
+    methods: {
+        popoverShow() {
+            this.recentColorList = localStorage.getItem('recentColor').split(',');
+        },
+        handleActiveTabChange(index) {
+            this.activeTab = index;
+
+        },
+        debounce(fn, wait = 200) {
+            let timer = null;
+            return function (...args) {
+
+                if (isFirst) {
+                    fn.apply(this, args)
+                    isFirst = false
+                } else {
+                    if (timer) {
+                        clearTimeout(timer)
+                        timer = null
+                    }
+                    timer = setTimeout(function () {
+                        fn.apply(this, args)
+                    }, wait)
+                }
+
+            }
+        },
+        // slider 事件
+        silderBarDown(e) {
+            this.sliderState = true;
+            this.Sval = 100;
+            this.Vval = 100;
+            if (e.target != $(`.silderBar_${this.pickId}`)[0]) {
+                this.setSlilderColor(e.offsetY)
+            }
+
+        },
+        silderBarMove(e) {
+            if (!this.sliderState) return;
+            this.debounce(() => {
+                if (e.target != $(`.silderBar_${this.pickId}`)[0]) {
+                    this.setSlilderColor(e.offsetY)
+                }
+            }, 200)()
+        },
+        sliderBarUp() {
+            this.sliderState = false;
+            isFirst = true;
+
+        },
+        setSlilderColor(y) {
+            this.siderBarTop = y - 3;
+            this.offsetY = y / 150;
+            this.Hval = 360 * this.offsetY;
+            this.curColor = this.hsvtorgb(this.Hval, this.Sval, this.Vval)
+            this.curSliderColor = this.curColor;
+            this.colorInput = this.setRgbTo16(this.curColor);
+        },
+        colorBarDown(e) {
+            this.colorBgState = true;
+            if (e.target != $(`.colorBarTarget_${this.pickId}`)[0] && e.target != $(`.colorBarTarget_${this.pickId}`)[1]) {
+                this.setColor(e.offsetX, e.offsetY)
+            }
+
+        },
+        colorBarMove(e) {
+            if (!this.colorBgState) return;
+            this.debounce(() => {
+                if (e.target != $(`.colorBarTarget_${this.pickId}`)[0] && e.target != $(`.colorBarTarget_${this.pickId}`)[1]) {
+                    this.setColor(e.offsetX, e.offsetY)
+                }
+            }, 200)()
+
+        },
+        colorBarUp() {
+            this.colorBgState = false;
+            isFirst = true;
+        },
+        setColor(x, y) {
+            this.colorBarTop = y - 4;
+            this.colorBarLeft = x - 4;
+            this.Sval = x / 185 * 100;
+            this.Vval = (1 - y / 150) * 100;
+            this.curColor = this.hsvtorgb(this.Hval, this.Sval, this.Vval)
+            this.colorInput = this.setRgbTo16(this.curColor);
+        },
+        // 清空color
+        handleClearColor() {
+            this.$emit('changeColor', '');
+            this.$refs[`popoverRef_${this.pickId}`].doClose();
+        },
+        // 选择color
+        handleCheckColor(e) {
+            let color = e.currentTarget.dataset.color
+            this.handleSubmitColor(color)
+        },
+        handleConfirmColor() {
+            var reg = /^#([0-9A-Fa-f]{3}|[0-9A-Fa-f]{6})$/
+            if (reg.test(this.colorInput)) {
+                this.handleSubmitColor(this.colorInput)
+            }
+        },
+        // 修改颜色
+        handleSubmitColor(val) {
+            this.recentColorList.unshift(val);
+            this.recentColorList = Array.from(new Set(this.recentColorList));
+            if (this.recentColorList.length > 8) {
+                this.recentColorList = this.recentColorList.slice(0, 8)
+            }
+            localStorage.setItem('recentColor', this.recentColorList)
+            this.$emit('changeColor', val);
+            this.$refs[`popoverRef_${this.pickId}`].doClose();
+        },
+        // input修改时回显色盘
+        handleInputChange(value){
+            console.log(value)
+            var reg = /^#([0-9A-Fa-f]{3}|[0-9A-Fa-f]{6})$/
+            if (reg.test(value)) {
+                this.curColor = this.set16ToRgb(value);
+                this.colorInputHsv = this.rgbtohsv(this.curColor)
+                this.curSliderColor= this.curColor;
+                this.Hval = this.colorInputHsv[0];
+                this.Sval = this.colorInputHsv[1];
+                this.Vval = this.colorInputHsv[2];
+                this.siderBarTop=(this.Hval*15)/36-3;
+                this.colorBarLeft=(185*this.Sval)/100-4;
+                this.colorBarTop=(1-(this.Vval/100))*150-4;
+            }
+
+        },
+        // hsv转rgb
+        hsvtorgb(h, s, v) {
+            s = s / 100;
+            v = v / 100;
+            var h1 = Math.floor(h / 60) % 6;
+            var f = h / 60 - h1;
+            var p = v * (1 - s);
+            var q = v * (1 - f * s);
+            var t = v * (1 - (1 - f) * s);
+            var r, g, b;
+            switch (h1) {
+                case 0:
+                    r = v;
+                    g = t;
+                    b = p;
+                    break;
+                case 1:
+                    r = q;
+                    g = v;
+                    b = p;
+                    break;
+                case 2:
+                    r = p;
+                    g = v;
+                    b = t;
+                    break;
+                case 3:
+                    r = p;
+                    g = q;
+                    b = v;
+                    break;
+                case 4:
+                    r = t;
+                    g = p;
+                    b = v;
+                    break;
+                case 5:
+                    r = v;
+                    g = p;
+                    b = q;
+                    break;
+            }
+            return [Math.round(r * 255), Math.round(g * 255), Math.round(b * 255)];
+        },
+        // rgb转hsv
+        rgbtohsv(arr) {
+            var h = 0, s = 0, v = 0;
+            var r = arr[0], g = arr[1], b = arr[2];
+            arr.sort(function (a, b) {
+                return a - b;
+            })
+            var max = arr[2]
+            var min = arr[0];
+            v = max / 255;
+            if (max === 0) {
+                s = 0;
+            } else {
+                s = 1 - (min / max);
+            }
+            if (max === min) {
+                h = 0;//事实上，max===min的时候，h无论为多少都无所谓
+            } else if (max === r && g >= b) {
+                h = 60 * ((g - b) / (max - min)) + 0;
+            } else if (max === r && g < b) {
+                h = 60 * ((g - b) / (max - min)) + 360
+            } else if (max === g) {
+                h = 60 * ((b - r) / (max - min)) + 120
+            } else if (max === b) {
+                h = 60 * ((r - g) / (max - min)) + 240
+            }
+            h = parseInt(h);
+            s = parseInt(s * 100);
+            v = parseInt(v * 100);
+            return [h, s, v]
+        },
+
+        //十六进制转rgb
+        set16ToRgb(str) {
+            // var reg = /^#([0-9A-Fa-f]{3}|[0-9A-Fa-f]{6})$/
+            // if (!reg.test(str)) { return; }
+            let newStr = (str.toLowerCase()).replace(/\#/g, '')
+            let len = newStr.length;
+            if (len == 3) {
+                let t = ''
+                for (var i = 0; i < len; i++) {
+                    t += newStr.slice(i, i + 1).concat(newStr.slice(i, i + 1))
+                }
+                newStr = t
+            }
+            let arr = [];
+            for (var i = 0; i < 6; i = i + 2) {
+                let s = newStr.slice(i, i + 2)
+                arr.push(parseInt("0x" + s))
+            }
+            return arr
+        },
+        // rgb转十六进制
+        setRgbTo16(arr) {
+            let c = '#';
+            for (var i = 0; i < arr.length; i++) {
+                var t = Number(arr[i]).toString(16);
+                if (Number(arr[i]) < 16) {
+                    t = '0' + t;
+                }
+                c += t;
+            }
+            return c;
+        },
+
     },
-    // 获取本篇文章所有评论
-    async getCommentList() {
-      try {
-        this.comments = [];
-        let id = "";
-        if (this.articleId == "messageBoard") {
-          id = "messageBoard";
-        } else {
-          id = this.articleId;
-        }
-        // 获取某篇文章下的所有评论
-        const res = await this.$api.getCommentsOfArticle({ id });
-        this.comments = res.data.comments; //评论列表
-        this.username = res.data.user?.username;
-        this.avatarUrl = res.data.user?.avatarUrl;
-      } catch (err) {
-        this.$message.error(err);
-      }
+    computed: {},
+    created() {
+        this.pickId = Math.random().toString(36).slice(-10);
     },
-    // 评论点赞
-    giveALike(item, _id) {
-      try {
-        // 不允许同一个人重复点赞
-        if (item.favour?.includes(this.userId)) {
-          this.$message.info("您已经点过赞啦！");
-          return;
-        }
-        //判断是给一级评论点赞还是二级评论，只有二级评论会有replyName
-        if (item.replyName) {
-          // 给二级评论点赞，向后台提交数据
-        } else {
-          // 一级评论点赞，向后台提交数据
-        }
-        item.favour.push(this.userId);
-      } catch (err) {
-        this.$message.error(err);
-      }
+    watch: {},
+    mounted() {
+
     },
-    isShowSecReply(id) {
-      if (id) {
-        this.isShowSec = id;
-        if (this.isClickId === this.isShowSec) {
-          this.isShowSec = "";
-        } else {
-          this.isShowSec = id;
+    props: {
+        iconClass: {
+            type: String,
+            default: 'iconzitiyanse'
+        },
+        iconTitle:{
+            type:String,
+            default:'颜色'
         }
-        this.isClickId = this.isShowSec;
-      } else {
-        this.isShowSec = this.isClickId = "";
-      }
     },
-    deleteComment(_id, replyId) {
-      if (replyId) {
-        // 删除二级评论，提交请求到后端
-
-        // 成功后从本地记录中删除该评论
-        const temp = this.comments.find(item => item._id == _id).replyInfo;
-        for (let i = 0; i < temp.length; i++) {
-          if (temp[i]._id == replyId) {
-            temp.splice(i, 1);
-            break;
-          }
-        }
-      } else {
-        // 删除一级评论，提交请求到后端
-
-        // 成功后从本地记录中删除该评论
-        for (let i = 0; i < this.comments.length; i++) {
-          if (this.comments[i]._id == _id) {
-            this.comments.splice(i, 1);
-          }
-        }
-      }
-    },
-    async addComment(id, replyName) {
-      let res = {};
-      // 评论添加成功，返回的数据
-      //本地更新评论列表
-      if (replyName) {
-        // 添加二级评论
-        if (!this.replyContext) {
-          this.$message.warning("评论或留言不能为空哦！");
-          return;
-        }
-        // 模拟数据提交成功后返回数据
-        res.data = {
-          username: this.username,
-          userId: this.userId,
-          avatarUrl: this.avatarUrl,
-          _id: "sec" + this.secIdx++, // 评论id
-          replyName,
-          date: "2022.09.01", //创建日期
-          favour: [], //点赞的用户id
-          content: this.replyContext //评论内容
-        };
-        const comment = this.comments.find(item => item._id == id);
-        if (!comment.replyInfo) {
-          comment.replyInfo = [];
-        }
-        comment.replyInfo.push(res.data);
-        this.replyContext = "";
-      } else {
-        // 添加一级评论，提交数据到后端
-        if (!this.context) {
-          this.$message.warning("评论或留言不能为空哦！");
-          return;
-        }
-        // 模拟数据提交成功后返回数据
-        res.data = {
-          username: this.username,
-          avatarUrl: this.avatarUrl,
-          userId: this.userId,
-          _id: "first" + this.firstIdx++, // 评论id
-          date: "2022.09.01", //创建日期
-          articleId: this.articleId, // 评论的文章id
-          favour: [], //点赞的用户id
-          content: this.context //评论内容
-        };
-        this.comments.push(res.data);
-        this.context = "";
-      }
-      this.isShowSec = this.isClickId = "";
-    }
-  }
-};
-</script>
-  
-<style lang="scss" scoped>
-.comment {
-  min-height: 26vh;
-  border-radius: 5px;
-  margin-top: 2px;
-  overflow: hidden;
-  .active {
-    color: rgb(202, 4, 4);
-  }
-  .comment-header {
-    position: relative;
-    height: 50px;
-    padding: 10px 5px;
-    display: flex;
-    align-items: center;
-
-    .input {
-      margin-left: 10px;
-      margin-right: 20px;
-      flex: 1;
-      :deep(.el-input__inner:focus) {
-        border-color: #dcdfe6;
-      }
-    }
-  }
-
-  .comment-body {
-    min-height: 70px;
-    padding: 10px 20px;
-    font-size: 14px;
-    .first-comment {
-      display: flex;
-      .input {
-          :deep(.el-input__inner:focus) {
-          border-color: #dcdfe6;
-        }
-      }
-      i {
-        margin-right: 5px;
-        margin-left: 1vw;
-        cursor: pointer;
-
-        &:nth-child(3) {
-          color: rgb(202, 4, 4);
-        }
-      }
-
-      .content {
-        margin-left: 10px;
-        position: relative;
-        flex: 1;
-
-        & > span {
-          font-size: 12px;
-          color: rgb(130, 129, 129);
-        }
-
-        .comment-right {
-          position: absolute;
-          right: 0;
-          top: 0;
-        }
-
-        .reply-comment {
-          height: 60px;
-          display: flex;
-          align-items: center;
-
-          .reply-button {
-            margin-left: 20px;
-            height: 35px;
-          }
-        }
-
-        .second-comment {
-          display: flex;
-          padding: 10px 0 10px 5px;
-          border-radius: 20px;
-          background: #ffffff;
-          .to_reply {
-            color: rgb(126, 127, 128);
-          }
-        }
-      }
-    }
-  }
 }
-</style>
-  
+
+</script>
