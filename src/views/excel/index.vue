@@ -175,9 +175,13 @@
         if (chartRef.value) {
             myChart = echarts.init(chartRef.value);
             const option = {
-                title: {
-                    text: 'ECharts 示例'
-                },
+                // title: {
+                //   // 主标题
+                //   text: '这是主标题',
+                //   // 子标题（可选）
+                //   subtext: '这是子标题',
+                //   left: 'center' // 关键配置
+                // },
                 tooltip: {},
                 xAxis: {
                     // data: [ "衬衫","羊毛衫","雪纺衫","裤子","高跟鞋","袜子" ]
