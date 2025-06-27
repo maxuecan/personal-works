@@ -132,6 +132,8 @@
     <el-empty :description="emptyText" v-show="comments.length === 0"></el-empty>
   
     <input type="file" id="videoFileInput" accept=".webm">
+
+    <iframe src="https://www.doubao.com/chat/10208887949550338" frameborder="0"></iframe>
   </div>
 </template>
 <script>
